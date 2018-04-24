@@ -1,0 +1,13 @@
+{
+  "name": "proyecto",
+  "version": "1.0.0",
+  "description": "hola judas",
+  "main": "index.js",
+  "author": "arthur",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mysql": "^2.15.0",
+    "pug": "^2.0.3"
+  }
+}
