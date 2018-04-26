@@ -1,12 +1,15 @@
 const express = require('express');
 let path = require('path');
-const app = express();
-const routes = require('./routes/routess');
+const bodyParser = require('body-parser');
+const routes = require('./routes/routes');
 
+const app = express();
 //routes
 app.set("view engine","pug");
-app.use('/', routes);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use('/', routes);
 app.use(express.static(path.join(__dirname, 'public')));
 
 

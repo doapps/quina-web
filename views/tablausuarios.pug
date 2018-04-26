@@ -5,53 +5,69 @@ html(lang='en')
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    link(rel='stylesheet', href='https://bootswatch.com/4/lux/bootstrap.min.css')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
-  body
-    .container
-      h2 Crear Nuevos Usuarios
-      p Registros:
-      table.table.table-striped
+    style(type='text/css').
+      .body-tables *{
+        font-size: 15px;
+      }
+      .body-tables{
+        overflow-x: hidden;
+      }
+      
+
+  body.body-tables
+  nav.navbar.navbar-expand-lg.navbar-dark(style="background-color:#28a745; margin-bottom: 30px;")
+  .row.justify-content-center
+    .col-md-6  
+      a.navbar-brand(href='#', style="height: auto; margin-bottom: 15px") Registro de Usuarios
+  .row.justify-content-center
+    
+    .col-md-6(style="margin-bottom: 30px;")
+      .card-body
+        form(action='/tablausuarios/', method='POST')
+          .form-group
+            input.form-control(type='text', name='name', placeholder='Name', autofocus='')
+          .form-group
+            input.form-control(type='text', name='address', placeholder='Address')
+          .form-group
+            input.form-control(type='text', name='contraseña', placeholder='password')
+          .form-group
+            input.form-control(type='email', name='correo', placeholder='email')
+          .form-group
+            input.form-control(type='text', name='rol', placeholder='administrador/operador')
+          .form-group
+            input.form-control(type='text', name='estado', placeholder='habilitado/inabilitado')
+          .button-cnt.row.justify-content-center(style="padding-bottom: 35px; padding-top: 15px;")
+              button.btn.btn-primary(type='submit',style="background-color:#1f9bcf")
+                | Registrar
+             
+                
+  .row(style="margin-bottom: 65px;")
+    .col-md-12( style="max-width: 80%; margin: 0 auto; overflow-x: scroll")   
+      table.table.table-bordered.table-hover
         thead
           tr
-            th ID
-            th Nombre
-            th Apellido
-            th Correo
-            th Contraseña
-            th Rol
-            th Estado
-            th Fecha de Creacion
-            th Fecha de Actualización
-        
+            td ID
+            td Nombre
+            td Apellido
+            td Correo
+            td Contraseña
+            td Rol
+            td Estado
+            td Fecha_creacion
+            td Fecha_actualizacion 
+          each usuario in usertabla
+            tr
+              td= usuario.id
+              td= usuario.nombre
+              td= usuario.apellido
+              td= usuario.correo
+              td= usuario.contra
+              td= usuario.rol
+              td= usuario.estado
+              td= usuario.fecha_creacion
+              td= usuario.fecha_actualizacion
+
         tbody
-          tr
-            td John
-            td Doe
-            td john@example.com
-            td John
-            td Doe
-            td john@example.com
-            td John
-            td Doe
-            td john@example.com
-          tr
-            td Mary
-            td Moe
-            td mary@example.com
-            td John
-            td Doe
-            td john@example.com
-            td John
-            td Doe
-            td john@example.com
-          tr
-            td July
-            td Dooley
-            td july@example.com
-            td John
-            td Doe
-            td john@example.com
-            td John
-            td Doe
-            td john@example.com

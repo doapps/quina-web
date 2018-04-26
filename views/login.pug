@@ -6,50 +6,69 @@ html(lang='es')
     meta(name='description', content='')
     meta(name='author', content='')
     link(rel='icon', href='../../../../favicon.ico')
-    title Signin Template for Bootstrap
+    title Login 
     // Bootstrap core CSS
     link(href='https://getbootstrap.com/dist/css/bootstrap.min.css', rel='stylesheet')
     link(href='css/signin.css', rel='stylesheet')
   body(style="background-image: url('https://doapps.me/blog/wp-content/themes/doapps/client/img/blog/blog-background.jpg');")
     .row(style="width: 100%; height: 100vh; margin:0;")  
       .form-cnt.text-center.align-items-center.justify-content-center(style="width: 100%; background-color: #000000b5; display: flex;")
-        form.form-signin
+        form.form-signin(action='/login', method='post')
           h1.h3.mb-3.font-weight-normal(style="color:#f8f9fa") Please sign in
-          label.sr-only(for='inputid') ID
-          input#inputid.form-control(type='text', placeholder='ID', required='', autofocus='',style="margin-bottom:4px;")
           label.sr-only(for='inputEmail') Email address
-          input#inputEmail.form-control(type='email', placeholder='Email address', required='', autofocus='',style="margin-bottom:4px;")
+          input#inputEmail.form-control(type='email', name='email', placeholder='Email address', required='', autofocus='',style="margin-bottom:4px;")
           label.sr-only(for='inputPassword') Password
-          input#inputPassword.form-control(type='password', placeholder='Password', required='',style="margin-bottom:12px;")
+          input#inputPassword.form-control(type='password', name='password', placeholder='Password', required='',style="margin-bottom:12px;")
           button#button-login.btn.btn-lg.btn-primary.btn-block(type='submit',style="background-color:#28a745;border-color:#28a745b0") Sign in
-          
           p.mt-5.mb-3.text-muted(style="color:#f8f9fa!important;") © 2018-Judas
-           
-          p #{user[0].id}
+      
+      if vercorreo==true
+          if vercontra==false
+              .modal-cnt    
+                .modal-card
+                  p Contraseña Incorrecta
+                  a.modal-btn(href="#")
+                    span Intentar de nuevo
+          else if vercontra==true
+                .modal-cnt    
+                  .modal-card
+                    p Todo es Correcto
+                    a.modal-btn(href="#")
+                      span OK
+
+      else if  vercorreo==false
+        .modal-cnt    
+          .modal-card
+            p Error el correo es incorrecto
+            a.modal-btn(href="#")
+              span Intentar de nuevo
+      else
+        small
+          
+
+
+    script(type="text/javascript").
+      const 
+            modalBtn = document.querySelector('.modal-btn'),
+            modalBtnSpan = document.querySelector('.modal-btn span'),
+            modalBtnSpanValue = modalBtnSpan.innerText;
+            modalCnt  = document.querySelector('.modal-cnt');
+      
+
+      modalBtn.addEventListener('click', () => {
+        modalCnt.classList.add('hide');
+
+        if(modalBtnSpanValue === 'OK'){
+          window.location.href ="/tablausuarios/";
+        }else{
+          window.location.href ="/";
+          
+        }
+      });
+
 
    
 
-
-
-  script(type="text/javascript").
-
-    let buttonLogin = document.getElementById('button-login');
-    let formSignin = document.querySelector('.form-signin');
-
-    formSignin.addEventListener('submit',function(e){
-      e.preventDefault();
-      let id = document.getElementById('inputid');
-      let idValue = id.value;
-
-
-
-      if(idValue === "arturo"){
-        window.location.href = "/tablausuarios";
-        
-      }else{
-        alert("EL ID es incorrecto porfavor vuelva a ingresar");
-      }
-    })
 
 
 
