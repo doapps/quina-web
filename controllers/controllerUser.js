@@ -23,13 +23,13 @@ controller.tablainsert=(req,res)=>{
     const estados=req.body.estado;
     const encryptcontraseña = require('crypto').createHash('md5').update(contra).digest('hex');
 
+    var fecha =new Date();
     db.query('insert into usuario (nombre ,apellido,correo,contra,rol,estado,fecha_creacion,fecha_actualizacion) values(?,?,?,?,?,?,?,?)',
-    [nombre,apellido,correos,encryptcontraseña,roles,],
+    [nombre,apellido,correos,encryptcontraseña,roles,estados,fecha,fecha],
     function(err,result,fields){
 
-    
-
-
+        res.render("tablausuarios");
+        res.redirect("/tablausuarios/");
 
 });
 
