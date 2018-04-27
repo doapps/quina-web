@@ -38,7 +38,7 @@ html(lang='en')
           .form-group
             input.form-control(type='text', name='rol', placeholder='administrador/operador')
           .form-group
-            input.form-control(type='text', name='estado', placeholder='habilitado/inabilitado')
+            input.form-control(type='text', name='estado', placeholder='habilitado/inhabilitado')
           .button-cnt.row.justify-content-center(style="padding-bottom: 35px; padding-top: 15px;")
               button.btn.btn-primary(type='submit',style="background-color:#1f9bcf")
                 | Registrar
@@ -58,6 +58,7 @@ html(lang='en')
             td Estado
             td Fecha_creacion
             td Fecha_actualizacion 
+            td Modifcar-Eliminar
           each usuario in usertabla
             tr
               td= usuario.id
@@ -69,5 +70,9 @@ html(lang='en')
               td= usuario.estado
               td= usuario.fecha_creacion
               td= usuario.fecha_actualizacion
+              td.a.btn.btn-info(href='#',style="width:90px") Edit 
+              td.a.btn.btn-danger(href='#',style="width:90px") Delete
+
+
 
         tbody
