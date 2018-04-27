@@ -2,6 +2,7 @@ const express=require('express');
 const router =express.Router();
 const cuscontroler=require('../controllers/controllerUser');
 const loginController = require('../controllers/controllerlogin');
+const test = require('../controllers/test');
 
 router.get('/', (req, res, next) => { res.render('login');});
 router.post('/login', loginController.validarUsuario);
