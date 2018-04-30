@@ -6,8 +6,7 @@ html(lang='en')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
     link(rel='stylesheet', href='https://bootswatch.com/4/lux/bootstrap.min.css')
-    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
-    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    link(href='css/signin.css', rel='stylesheet')
     style(type='text/css').
       .body-tables *{
         font-size: 15px;
@@ -18,61 +17,62 @@ html(lang='en')
       
 
   body.body-tables
-  nav.navbar.navbar-expand-lg.navbar-dark(style="background-color:#28a745; margin-bottom: 30px;")
-  .row.justify-content-center
-    .col-md-6  
-      a.navbar-brand(href='#', style="height: auto; margin-bottom: 15px") Registro de Usuarios
-  .row.justify-content-center
-    
-    .col-md-6(style="margin-bottom: 30px;")
-      .card-body
-        form(action='/tablausuarios/', method='POST')
-          .form-group
-            input.form-control(type='text', name='name', placeholder='Name', autofocus='')
-          .form-group
-            input.form-control(type='text', name='address', placeholder='Address')
-          .form-group
-            input.form-control(type='text', name='contraseña', placeholder='password')
-          .form-group
-            input.form-control(type='email', name='correo', placeholder='email')
-          .form-group
-            input.form-control(type='text', name='rol', placeholder='administrador/operador')
-          .form-group
-            input.form-control(type='text', name='estado', placeholder='habilitado/inhabilitado')
-          .button-cnt.row.justify-content-center(style="padding-bottom: 35px; padding-top: 15px;")
-              button.btn.btn-primary(type='submit',style="background-color:#1f9bcf")
-                | Registrar
-             
-                
-  .row(style="margin-bottom: 65px;")
-    .col-md-12( style="max-width: 80%; margin: 0 auto; overflow-x: scroll")   
-      table.table.table-bordered.table-hover
-        thead
-          tr
-            td ID
-            td Nombre
-            td Apellido
-            td Correo
-            td Contraseña
-            td Rol
-            td Estado
-            td Fecha_creacion
-            td Fecha_actualizacion 
-            td Modifcar-Eliminar
+    nav.navbar.navbar-expand-lg.navbar-dark(style="background-color:#28a745; margin-bottom: 30px;")
+    .row.justify-content-center
+      .col-md-6  
+        a.navbar-brand(href='#', style="height: auto; margin-bottom: 15px") Registro de Usuarios
+    .row.justify-content-center
+      
+      .col-md-6(style="margin-bottom: 30px;")
+        .card-body
+          form(action='/tablausuarios/', method='POST')
+            .form-group
+              input.form-control(type='text', id="name", name='name', placeholder='Name', autofocus='')
+            .form-group
+              input.form-control(type='text', name='address', placeholder='Address')
+            .form-group
+              input.form-control(type='text', name='contraseña', placeholder='password')
+            .form-group
+              input.form-control(type='email', name='correo', placeholder='email')
+            .form-group
+              input.form-control(type='text', name='rol', placeholder='administrador/operador')
+            .form-group
+              input.form-control(type='text', name='estado', placeholder='habilitado/inhabilitado')
+            .button-cnt.row.justify-content-center(style="padding-bottom: 35px; padding-top: 15px;")
+                button.btn.btn-primary#button-form-users(type='submit',style="background-color:#1f9bcf")
+                  | Registrar
+    .row(style="margin-bottom: 65px;")
+      .col-md-12( style="max-width: 80%; margin: 0 auto; overflow-x: scroll")   
+        table.table.table-bordered.table-hover
+          thead
+              tr
+                  td ID
+                  td Nombre
+                  td Apellido
+                  td Correo
+                  td Contraseña
+                  td Rol
+                  td Estado
+                  td Fecha_creacion
+                  td Fecha_actualizacion 
+                  td Modificar
+                  td Eliminar
+
           each usuario in usertabla
-            tr
-              td= usuario.id
-              td= usuario.nombre
-              td= usuario.apellido
-              td= usuario.correo
-              td= usuario.contra
-              td= usuario.rol
-              td= usuario.estado
-              td= usuario.fecha_creacion
-              td= usuario.fecha_actualizacion
-              td.a.btn.btn-info(href='#',style="width:90px") Edit 
-              td.a.btn.btn-danger(href='#',style="width:90px") Delete
-
-
-
-        tbody
+              tr
+                  td= usuario.id
+                  td= usuario.nombre
+                  td= usuario.apellido
+                  td= usuario.correo
+                  td= usuario.contra
+                  td= usuario.rol
+                  td= usuario.estado
+                  td= usuario.fecha_creacion
+                  td= usuario.fecha_actualizacion
+                  td
+                      a.btn.btn-info(href='/update/'+usuario.id,style="background-color:#4dbf4b") Edit
+                      
+                  td 
+                      a.btn.btn-danger(href='/delete/'+usuario.id) Delete
+    
+          tbody
