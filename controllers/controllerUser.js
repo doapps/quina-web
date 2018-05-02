@@ -2,16 +2,15 @@ const db = require('../database/Connection');
 const controller={};
 
 controller.tablauser=(req,res)=>{
-
-   
-    db.query('select id,nombre,apellido,correo,contra,rol,estado,fecha_creacion,fecha_actualizacion from  usuario ', function (err, result, fields){
-
-    res.render("tablausuarios",{usertabla:result});
-    console.log("tabla de usuarios...");
+    db.query('select * from  usuario ', function (err, result, fields){
+        if (err) {
+            res.json(err);
+           }
+            res.render("tablausuarios",{tablau:result});
+            console.log("tabla de usuarios...");
 
     });
 }
-
 
 controller.tablainsert=(req,res)=>{
     const nombre = req.body.name;
@@ -19,17 +18,26 @@ controller.tablainsert=(req,res)=>{
     const contra=req.body.contraseña;
     const correos=req.body.correo;
     const roles=req.body.rol;
-    const estados=req.body.estado;
     const encryptcontraseña = require('crypto').createHash('md5').update(contra).digest('hex');
+    var vacios=false;
+///^([0-9])*$/.test()===true
+    if(nombre==""){
+        console.log(vacios);
+      
+        res.redirect("/tablausuarios/");
+          res.render("tablausuarios",{"vacios":vacios});
+    }else{
         var fecha =new Date();
-        db.query('insert into usuario (nombre ,apellido,correo,contra,rol,estado,fecha_creacion,fecha_actualizacion) values(?,?,?,?,?,?,?,?)',
-        [nombre,apellido,correos,encryptcontraseña,roles,estados,fecha,fecha],
-        function(err,result,fields){
+            db.query('insert into usuario (nombre ,apellido,correo,contra,rol,estado,fecha_creacion,fecha_actualizacion) values(?,?,?,?,?,?,?,?)',
+            [nombre,apellido,correos,encryptcontraseña,roles,'Habilitado',fecha,fecha],
+            function(err,result,fields){
+                console.log(roles);
+                res.render("tablausuarios");
+                res.redirect("/tablausuarios/");
 
-            res.render("tablausuarios");
-            res.redirect("/tablausuarios/");
-
-        });
+            });
+    }
+  
 }
 
 

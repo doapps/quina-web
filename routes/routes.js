@@ -3,7 +3,7 @@ const router =express.Router();
 const cuscontroler=require('../controllers/controllerUser');
 const loginController = require('../controllers/controllerlogin');
 
-router.get('/', (req, res, next) => { res.render('login');});
+router.get('/login', (req, res, next) => { res.render('login');});
 router.get('/usuarioedit', (req, res, next) => { res.render('usuarioedit');});
 router.post('/login', loginController.validarUsuario);
 router.get('/tablausuarios/',cuscontroler.tablauser);

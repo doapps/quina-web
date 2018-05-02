@@ -1,9 +1,8 @@
 doctype html
-html(lang='en')
+html(lang='es')
   head
     title Edit
     meta(charset='utf-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
     link(rel='stylesheet', href='https://bootswatch.com/4/lux/bootstrap.min.css')
     link(href='css/signin.css', rel='stylesheet')
@@ -17,30 +16,34 @@ html(lang='en')
       
 
   body.body-tables
-  nav.navbar.navbar-expand-lg.navbar-dark(style="background-color:#a72857; margin-bottom: 30px;")
-  .row.justify-content-center
-    .col-md-6  
-      a.navbar-brand(href='#', style="height: auto; margin-bottom: 15px") Editar Usuarios
-  .row.justify-content-center
-    
-    .col-md-6(style="margin-bottom: 30px;")
-      .card-body
-        form(action='/update/'+dato[0].id, method='POST')
-          .form-group(style="margin-bottom: 16px")
-           p(style="margin-bottom: 2px") Nombre
-           input.form-control(type='text', name='nombre', value=dato[0].nombre,  placeholder='Name', autofocus='')
-          .form-group(style="margin-bottom: 16px")
-            p(style="margin-bottom: 2px") Apellido
-            input.form-control(type='text', name='apellido',value=dato[0].apellido, placeholder='Address')
-          .form-group(style="margin-bottom: 16px")
-            p(style="margin-bottom: 2px") Correo
-            input.form-control(type='email', name='correo',value=dato[0].correo, placeholder='email')
-          .form-group(style="margin-bottom: 16px")
-            p(style="margin-bottom: 2px") Rol
-            input.form-control(type='text', name='rol', value=dato[0].rol,placeholder='administrador/operador')
-          .form-group(style="margin-bottom: 16px")
-            p(style="margin-bottom: 2px") Estado
-            input.form-control(type='text', name='estado',value=dato[0].estado, placeholder='habilitado/inhabilitado')
-          .button-cnt.row.justify-content-center(style="padding-bottom: 35px; padding-top: 15px;")
-              button.btn.btn-primary(type='submit',style="background-color:#a72857")
-                | Editar
+    nav.navbar.navbar-expand-lg.navbar-dark(style="background-color:#a72857; margin-bottom: 30px;")
+    .row.justify-content-center
+      .col-md-6  
+        a.navbar-brand(href='#', style="height: auto; margin-bottom: 15px") Editar Usuarios
+    .row.justify-content-center
+      
+      .col-md-6(style="margin-bottom: 30px;")
+        .card-body
+          form(action='/update/'+dato[0].id, method='POST')
+            .form-group(style="margin-bottom: 16px")
+            p(style="margin-bottom: 2px") Nombre
+            input.form-control(type='text', name='nombre', value=dato[0].nombre,  placeholder='Name', autofocus='')
+            .form-group(style="margin-bottom: 16px")
+              p(style="margin-bottom: 2px") Apellido
+              input.form-control(type='text', name='apellido',value=dato[0].apellido, placeholder='Address')
+            .form-group(style="margin-bottom: 16px")
+              p(style="margin-bottom: 2px") Correo
+              input.form-control(type='email', name='correo',value=dato[0].correo, placeholder='email')
+            .form-group(style="margin-bottom: 16px")
+              p(style="margin-bottom: 2px") Rol
+              input.form-control(type='text', name='rol', value=dato[0].rol,placeholder='administrador/operador')
+            .form-group(style="margin-bottom: 16px")
+              p(style="margin-bottom: 2px") Estado
+              input.form-control(type='text', name='estado',value=dato[0].estado, placeholder='habilitado/inhabilitado')
+            .button-cnt.row.justify-content-center(style="padding-bottom: 35px; padding-top: 15px;")
+                button.btn.btn-primary(type='submit',style="background-color:#a72857")
+                  | Editar
+                a.btn.btn-primary(href="/tablausuarios/",style="background-color:#d9534f;margin-left: 30px;") Salir
+            
+         
+        

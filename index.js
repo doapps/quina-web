@@ -2,7 +2,6 @@ const express = require('express');
 let path = require('path');
 const bodyParser = require('body-parser');
 const routes = require('./routes/routes');
-const myConnection = require('express-myconnection');
 
 const app = express();
 //routes
@@ -14,4 +13,4 @@ app.use('/', routes);
 app.use(express.static(path.join(__dirname, '/public')));
 
 
-app.listen(3000);
+app.listen(8000);
