@@ -19,14 +19,9 @@ controller.tablainsert=(req,res)=>{
     const correos=req.body.correo;
     const roles=req.body.rol;
     const encryptcontraseña = require('crypto').createHash('md5').update(contra).digest('hex');
-    var vacios=false;
-///^([0-9])*$/.test()===true
-    if(nombre==""){
-        console.log(vacios);
-      
-        res.redirect("/tablausuarios/");
-          res.render("tablausuarios",{"vacios":vacios});
-    }else{
+   
+
+    
         var fecha =new Date();
             db.query('insert into usuario (nombre ,apellido,correo,contra,rol,estado,fecha_creacion,fecha_actualizacion) values(?,?,?,?,?,?,?,?)',
             [nombre,apellido,correos,encryptcontraseña,roles,'Habilitado',fecha,fecha],
@@ -36,7 +31,7 @@ controller.tablainsert=(req,res)=>{
                 res.redirect("/tablausuarios/");
 
             });
-    }
+
   
 }
 

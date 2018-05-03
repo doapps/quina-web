@@ -34,13 +34,13 @@ html(lang='en')
         .card-body
           form(action='/tablausuarios/', method='POST')
             .form-group
-              input.form-control(type='text', id="uno", name='name', placeholder='Nombre', autofocus='')
+              input.form-control(type='text', id="nombre", name='name', placeholder='Nombre', autofocus='')
             .form-group
-              input.form-control(type='text', name='address', placeholder='Apellido')
+              input.form-control(type='text',id="apellido", name='address', placeholder='Apellido')
             .form-group
-              input.form-control(type='password', name='contraseña', placeholder='Password')
+              input.form-control(type='password',id="contra" ,name='contraseña', placeholder='Password')
             .form-group
-              input.form-control(type='email', name='correo', placeholder='Email')
+              input.form-control(type='email',id="email", name='correo', placeholder='Email')
             .form-group
               select.selectpicker(name='rol')
                 option(value="Administrador") Administrador
@@ -48,9 +48,6 @@ html(lang='en')
             .button-cnt.row.justify-content-center(style="padding-bottom: 35px; padding-top: 15px;")
                 button.btn.btn-primary#button-form-users(type='submit',style="background-color:#1f9bcf")
                   | Registrar
-                button#button-send(type='button') SEND
-                #target
-                  | Click here
     .row(style="margin-bottom: 65px;")
       .col-md-12( style="max-width: 80%; margin: 0 auto; overflow-x: scroll") 
         table.table.table-bordered.table-hover
