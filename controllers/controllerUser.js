@@ -14,14 +14,13 @@ controller.tablauser=(req,res)=>{
 
 controller.tablainsert=(req,res)=>{
     const nombre = req.body.name;
-    const apellido = req.body.address;
+    const apellido = req.body.lastname;
     const contra=req.body.contraseña;
     const correos=req.body.correo;
     const roles=req.body.rol;
     const encryptcontraseña = require('crypto').createHash('md5').update(contra).digest('hex');
-   
+    const correounico=false;
 
-    
         var fecha =new Date();
             db.query('insert into usuario (nombre ,apellido,correo,contra,rol,estado,fecha_creacion,fecha_actualizacion) values(?,?,?,?,?,?,?,?)',
             [nombre,apellido,correos,encryptcontraseña,roles,'Habilitado',fecha,fecha],
@@ -30,10 +29,12 @@ controller.tablainsert=(req,res)=>{
                 res.render("tablausuarios");
                 res.redirect("/tablausuarios/");
 
-            });
+        });
+    }
 
-  
-}
+
+       
+
 
 
 controller.delete= (req, res) => {
@@ -41,7 +42,7 @@ controller.delete= (req, res) => {
     db.query('delete from usuario where id= ?',[valor],function(err,result,fields){
         res.redirect("/tablausuarios/");
      
-
+       
 });
 
 }

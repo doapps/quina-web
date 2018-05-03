@@ -1,6 +1,7 @@
 $(document).ready(function () {
     
     $('#button-form-users').click(function (event) {
+        console.log("sadsadsad");
         let name = $('#nombre').val();
         let apellido = $('#apellido').val();
         let contraseña = $('#contra').val();
@@ -30,5 +31,29 @@ $(document).ready(function () {
            }
         }
     });
+
+    $('.listoconfirmar').click(function(event){
+        let confi = confirm("Esta seguro que desea eliminar");
+        if(confi){
+           alert("Eliminado correctamente");
+        }else{
+          event.preventDefault();
+          alert("Accion realizada con exito");
+        }
+
+    });
+
+
+    $('#button-form-users').click(function (event) {
+            let valor=$('.unico').text();
+            let valorArray = new Array();
+            valorArray.push(valor);
+            console.log(valorArray[0]);
+        
+            
+
+    })
+   
+
     
 });

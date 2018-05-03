@@ -1,7 +1,7 @@
 doctype html
 html(lang='en')
   head
-    title Bootstrap Example
+    title Registro de Usuarios
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
@@ -23,6 +23,7 @@ html(lang='en')
       .form-group .btn-group{
         width: 100% !important;
       }
+      
   body.body-tables
     nav.navbar.navbar-expand-lg.navbar-dark(style="background-color:#28a745; margin-bottom: 30px;")
     .row.justify-content-center
@@ -36,9 +37,9 @@ html(lang='en')
             .form-group
               input.form-control(type='text', id="nombre", name='name', placeholder='Nombre', autofocus='')
             .form-group
-              input.form-control(type='text',id="apellido", name='address', placeholder='Apellido')
+              input.form-control(type='text',id="apellido", name='lastname', placeholder='Apellido')
             .form-group
-              input.form-control(type='password',id="contra" ,name='contraseña', placeholder='Password')
+              input.form-control(type='password',id="contra" ,name='contraseña', placeholder='Contraseña')
             .form-group
               input.form-control(type='email',id="email", name='correo', placeholder='Email')
             .form-group
@@ -76,10 +77,27 @@ html(lang='en')
                     a.btn.btn-info(href='/update/'+usuario.id,style="background-color:#4dbf4b") Edit
                     
                 td 
-                    a.btn.btn-danger(href='/delete/'+usuario.id) Delete
+                    a.listoconfirmar.btn.btn-danger(href='/delete/'+usuario.id) Delete
+    each usuario in tablau
+      p.unico=  usuario.correo 
+        
+
+  
+      
     
-        if vacios==false
-          p mal echo
+      
+            
+               
+            
+                
+           
+                      
+
+
+
+    
+
+      
 
 
 
