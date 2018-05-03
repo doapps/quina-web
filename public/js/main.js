@@ -18,7 +18,24 @@ $(document).ready(function () {
                     alert("El correo no es correcto");
                         
                 }else{
-                    alert("Datos Ingresados Correctamente");
+                    // alert("Datos Ingresados Correctamente");
+                    $.ajax({
+                        type: "POST",
+                        url: "/tablausuarios",
+                        data: { 
+                            nombre: name,
+                            apellido: apellido,
+                            contraseña: contraseña,
+                            correo: correo
+                        },
+                        success: function (data) {
+                            alert(data.message);
+                            event.preventDefault();
+                        },
+                        error: function (jqXHR, textStatus, err) {
+                            alert('text status ' + textStatus + ', err ' + err)
+                        }
+                    });
                 }
             
             }else{
