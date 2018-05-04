@@ -20,26 +20,25 @@ controller.tablainsert = (req,res) => {
     const roles = req.body.rol;
     const encryptcontraseña = require('crypto').createHash('md5').update(contra).digest('hex');
     var mensajecorreo="";
-    db.query('select correo from usuario',function(err,result,fields){
-        result.forEach(element => {
-            if(element.correo==correos){
-                mensajecorreo="El correo se repite  porfavor ingrese un correo nuevo";
-                res.status(200).send({message: mensajecorreo});
-               
-            }else{
-                res.status(200).send({message: mensajecorreo});
-                
+    db.query('select * from usuario where correo = ?', correos, function(err,result,fields){
+        if (result) {
+            console.log(`Result: ${result.length}`);
+            if (result.length > 0) {
+                res.status(200).send({message: 'El correo ya existe'});   
+            } else {
+                var fecha = new Date();
+                db.query('insert into usuario (nombre ,apellido,correo,contra,rol,estado,fecha_creacion,fecha_actualizacion) values(?,?,?,?,?,?,?,?)',
+                    [nombre, apellido, correos, encryptcontraseña, roles, 'Habilitado', fecha, fecha],
+                    function (err, result, fields) {
+                        res.status(200).send({ message: 'Registro completo', name: nombre, lastname: apellido });   
+                    });
             }
-        });
+        }
+        if (err) {
+            res.status(200).send({ message: 'Ocurrio un problema' });   
+        }
     });
-        var fecha = new Date();
-        db.query('insert into usuario (nombre ,apellido,correo,contra,rol,estado,fecha_creacion,fecha_actualizacion) values(?,?,?,?,?,?,?,?)',
-        [nombre,apellido,correos,encryptcontraseña,roles,'Habilitado',fecha,fecha],
-        function(err,result,fields){
-            console.log(roles);
-             res.render("tablausuarios");
-            res.redirect("/tablausuarios/");
-    });
+
 };
 
 
@@ -47,7 +46,7 @@ controller.tablainsert = (req,res) => {
 controller.delete= (req, res) => {
     const valor=req.params.id;
     db.query('delete from usuario where id= ?',[valor],function(err,result,fields){
-        res.redirect("/tablausuarios/");
+        res.redirect("/tablausuarios");
      
        
 });
@@ -76,7 +75,7 @@ controller.refrescar=(req,res)=>{
     db.query('update usuario set nombre=?,apellido=?,correo=?,rol=?,estado=?,fecha_actualizacion=? where id=?'
     ,[nom,apelli,email,rul,estatus,fecha,update],function(err,result,fields){
     
-        res.redirect("/tablausuarios/");
+        res.redirect("/tablausuarios");
 
 
     });

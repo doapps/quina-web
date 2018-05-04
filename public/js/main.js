@@ -1,81 +1,53 @@
 $(document).ready(function () {
-    
-    $('#button-form-users').click(function (event) {
-        console.log("sadsadsad");
+    // AJAX Events
+    $('#create-form').on('submit', function (event) {
         let name = $('#nombre').val();
         let apellido = $('#apellido').val();
         let contraseña = $('#contra').val();
         let correo = $('#email').val();
-        
-        if(name=="" || apellido==""||contraseña==""||correo==""){
-            event.preventDefault();
+
+        event.preventDefault();
+        if (name == "" || apellido == "" || contraseña == "" || correo == "") {
             alert("Complete todos los datos no debe haber campos vacios");
-        }else{
-          if(/^([0-9])*$/.test(name)===false){
-            if(/^([0-9])*$/.test(apellido)===false){
-                if(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(correo)==false){
-                    event.preventDefault();
-                    alert("El correo no es correcto");
-                        
-                }else{
-                
-                    $.ajax({
-                        type: "POST",
-                        url: "/tablausuarios",
-                        data: { 
-                            nombre: name,
-                            apellido: apellido,
-                            contraseña: contraseña,
-                            correo: correo
-                        },
-                        success: function(data) {
-                            if(data.message=="El correo se repite  porfavor ingrese un correo nuevo"){
-                               alert(data.message);
-                               event.preventDefault();
-
-                            }else{
-                                alert("Datos correctamente ingresados");
-                            }
-                        },
-                        error: function(jqXHR, textStatus, err) {
-                            alert('text status ' + textStatus + ', err ' + err)
-                        }
-                    });
+        } else {            
+            if (/^([0-9])*$/.test(name) === false) {
+                if (/^([0-9])*$/.test(apellido) === false) {
+                    if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(correo) == false) {
+                        alert("El correo no es correcto");
+                    } else {
+                        submitCreateUser($('#create-form').serialize());
+                    }
+                } else {
+                    alert("no se aceptan numeros en el campo apellido");
                 }
-            
-            }else{
-                event.preventDefault();
-                alert("no se aceptan numeros en el campo apellido");
+            } else {
+                alert("no se aceptan numeros en el campo nombre");
             }
-           }else{
-            event.preventDefault();
-            alert("no se aceptan numeros en el campo nombre");
-           }
         }
     });
 
-    $('.listoconfirmar').click(function(event){
+    $('.user-delete').click(function (event) {
         let confi = confirm("Esta seguro que desea eliminar");
-        if(confi){
-           alert("Eliminado correctamente");
-        }else{
-          event.preventDefault();
-          alert("Accion realizada con exito");
+        if (confi) {
+            alert("Eliminado correctamente");
+        } else {
+            event.preventDefault();
         }
-
     });
 
-
-    $('#button-form-users').click(function (event) {
-            let valor=$('.unico').text();
-            let valorArray = new Array();
-            valorArray.push(valor);
-            console.log(valorArray[0]);
-        
-            
-
-    })
-   
-
-    
+    // AJAX Functions
+    function submitCreateUser(formData) {
+        $.ajax({
+            type: "POST",
+            url: "/tablausuarios",
+            data: formData,
+            success: function (data) {
+                alert(data.message + " - el nombre es: " + data.name + ", apellido: " + data.lastname);
+                location.reload();
+            },
+            error: function (jqXHR, textStatus, err) {
+                alert('text status ' + textStatus + ', err ' + err)
+            }
+        });
+    }
 });
