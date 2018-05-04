@@ -19,10 +19,7 @@ controller.tablainsert = (req,res) => {
     const correos = req.body.correo;
     const roles = req.body.rol;
     const encryptcontraseña = require('crypto').createHash('md5').update(contra).digest('hex');
-    var mensajecorreo="";
     db.query('select * from usuario where correo = ?', correos, function(err,result,fields){
-        if (result) {
-            console.log(`Result: ${result.length}`);
             if (result.length > 0) {
                 res.status(200).send({message: 'El correo ya existe'});   
             } else {
@@ -30,13 +27,10 @@ controller.tablainsert = (req,res) => {
                 db.query('insert into usuario (nombre ,apellido,correo,contra,rol,estado,fecha_creacion,fecha_actualizacion) values(?,?,?,?,?,?,?,?)',
                     [nombre, apellido, correos, encryptcontraseña, roles, 'Habilitado', fecha, fecha],
                     function (err, result, fields) {
-                        res.status(200).send({ message: 'Registro completo', name: nombre, lastname: apellido });   
-                    });
-            }
-        }
-        if (err) {
-            res.status(200).send({ message: 'Ocurrio un problema' });   
-        }
+                        res.status(200).send({ message: 'Registro completo'});  
+                      });
+                    }
+
     });
 
 };

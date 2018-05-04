@@ -42,7 +42,7 @@ $(document).ready(function () {
             url: "/tablausuarios",
             data: formData,
             success: function (data) {
-                alert(data.message + " - el nombre es: " + data.name + ", apellido: " + data.lastname);
+                alert(data.message);
                 location.reload();
             },
             error: function (jqXHR, textStatus, err) {

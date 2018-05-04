@@ -1,7 +1,7 @@
 doctype html
 html(lang='en')
   head
-    title Registro de Usuarios
+    title Registro de Ingresos
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
@@ -25,29 +25,38 @@ html(lang='en')
       }
       
   body.body-tables
-    nav.navbar.navbar-expand-lg.navbar-dark(style="background-color:#28a745; margin-bottom: 30px;")
-      a.btn.btn-info(href="/tablausuarios",style="background-color:#4dbf4b ; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Usuarios
-      a.btn.btn-info(href="/tablaingresos",style="background-color:#3c763d; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Ingresos
-      a.btn.btn-info(href="//www.google.com/",style="background-color:#3c763d; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Gastos
+    nav.navbar.navbar-expand-lg.navbar-dark(style="background-color:#a92e2a; margin-bottom: 30px;")
+      a.btn.btn-info(href="/tablausuarios",style="background-color:#b33434; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Usuarios
+      a.btn.btn-info(href="//www.youtube.com/",style="background-color:#d84945; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Ingresos
+      a.btn.btn-info(href="//www.google.com/",style="background-color:#b33434; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Gastos
     .row.justify-content-center
       .col-md-6  
-        a.navbar-brand(href='#', style="height: auto; margin-bottom: 15px;font-size: 24px;font-weight: bold;") Registro de Usuarios
+        a.navbar-brand(href='#', style="height: auto; margin-bottom: 15px;font-size: 24px;font-weight: bold;color: #ec6a0d") Registro de Ingresos
     .row.justify-content-center
       .col-md-6(style="margin-bottom: 30px;")
         .card-body
           form(action='/tablausuarios', method='POST')
             .form-group
-              input.form-control(type='text', id="nombre", name='name', placeholder='Nombre', autofocus='')
+              input.form-control(type='text', id="titulo", name='titulo', placeholder='Titulo', autofocus='')
             .form-group
-              input.form-control(type='text',id="apellido", name='lastname', placeholder='Apellido')
+              input.form-control(type='text',id="descripcion", name='descripcion', placeholder='Descripción')
             .form-group
-              input.form-control(type='password',id="contra" ,name='contraseña', placeholder='Contraseña')
+              input.form-control(type='text',id="tipo" ,name='tipo', placeholder='Tipo')
             .form-group
-              input.form-control(type='email',id="email", name='correo', placeholder='Email')
+              input.form-control(type='text',id="moneda", name='moneda', placeholder='Tipo de Moneda')
             .form-group
-              select.selectpicker(name='rol')
-                option(value="Administrador") Administrador
-                option(value="Operador") Operador
+              input.form-control(type='text',id="monto", name='monto', placeholder='Monto')
+            .form-group
+              input.form-control(type='text',id="tipodocumento", name='tipodocumento', placeholder='Tipo de Documento')
+            .form-group
+              input.form-control(type='text',id="numerodocumento", name='numerodocumento', placeholder='Numero de Documento')
+            .form-group
+              input.form-control(type='text',id="razon", name='razon', placeholder='Razon Social')
+            .form-group
+              input.form-control(type='text',id="destino", name='destino', placeholder='Cuenta de Destino')
+            .form-group
+              input.form-control(type='text',id="componente", name='componente', placeholder='Tipo de Componente')
+
             .button-cnt.row.justify-content-center(style="padding-bottom: 35px; padding-top: 15px;")
                 button.btn.btn-primary#button-form-users(type='submit',style="background-color:#1f9bcf")
                   | Registrar
@@ -56,16 +65,20 @@ html(lang='en')
         table.table.table-bordered.table-hover
           thead
             tr
-              th Nombre
-              th Apellido
-              th Correo
-              th Rol
-              th Estado
-              th Fecha_creacion
-              th Fecha_actualizacion 
-              th Modificar
-              th Eliminar
-          tbody
+              th Id
+              th Titulo
+              th Descripcion
+              th Tipo
+              th Tipo de Moneda
+              th Fecha
+              th Monto
+              th Tipo de Documento
+              th Numero de Documento
+              th Razon Social
+              th Cuenta de Destino
+              th Tipo de Componente
+          
+          //
             each usuario in tablau
               tr
                 td= usuario.nombre
@@ -86,21 +99,3 @@ html(lang='en')
   
       
     
-      
-            
-               
-            
-                
-           
-                      
-
-
-
-    
-
-      
-
-
-
-      
-      

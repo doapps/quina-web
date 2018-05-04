@@ -13,4 +13,8 @@ router.get('/delete/:id', userController.delete);
 router.get('/update/:id', userController.consultaedit);
 router.post('/update/:id', userController.refrescar);
 
+//Registro ingresos
+router.get('/tablaingresos', (req, res, next) => { res.render('tablaingresos');});
+
+
 module.exports=router;
