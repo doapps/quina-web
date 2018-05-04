@@ -19,16 +19,26 @@ controller.tablainsert = (req,res) => {
     const correos = req.body.correo;
     const roles = req.body.rol;
     const encryptcontraseña = require('crypto').createHash('md5').update(contra).digest('hex');
-    const correounico = false;
-
-    var fecha = new Date();
+    var mensajecorreo="";
+    db.query('select correo from usuario',function(err,result,fields){
+        result.forEach(element => {
+            if(element.correo==correos){
+                mensajecorreo="El correo se repite  porfavor ingrese un correo nuevo";
+                res.status(200).send({message: mensajecorreo});
+               
+            }else{
+                res.status(200).send({message: mensajecorreo});
+                
+            }
+        });
+    });
+        var fecha = new Date();
         db.query('insert into usuario (nombre ,apellido,correo,contra,rol,estado,fecha_creacion,fecha_actualizacion) values(?,?,?,?,?,?,?,?)',
         [nombre,apellido,correos,encryptcontraseña,roles,'Habilitado',fecha,fecha],
         function(err,result,fields){
             console.log(roles);
-            res.status(200).send({ message: 'El correo ya existe' });
-            // res.render("tablausuarios");
-            // res.redirect("/tablausuarios/");
+             res.render("tablausuarios");
+            res.redirect("/tablausuarios/");
     });
 };
 
