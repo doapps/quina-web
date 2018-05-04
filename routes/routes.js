@@ -3,10 +3,12 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 const loginController = require('../controllers/loginController');
 
-router.get('/login', (req, res, next) => { res.render('login'); });
-router.get('/', (req, res, next) => { res.render('login'); });
-router.get('/usuarioedit', (req, res, next) => { res.render('usuarioedit'); });
+router.get('/', loginController.validarSession );
+router.get('/login', loginController.validarSession );
 router.post('/login', loginController.validarUsuario);
+router.get('/logout', loginController.logout );
+
+router.get('/usuarioedit', (req, res, next) => { res.render('usuarioedit'); });
 router.get('/tablausuarios',userController.tablauser);
 router.post('/tablausuarios',userController.tablainsert);
 router.get('/delete/:id', userController.delete);

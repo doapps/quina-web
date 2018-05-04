@@ -2,14 +2,19 @@ const db = require('../database/Connection');
 const controller={};
 
 controller.tablauser=(req,res)=>{
-    db.query('select * from  usuario ', function (err, result, fields){
-        if (err) {
-            res.json(err);
-           }
-            res.render("tablausuarios",{tablau:result});
+    let session = req.session;
+    if (session.email) {
+        db.query('select * from  usuario ', function (err, result, fields) {
+            if (err) {
+                res.json(err);
+            }
+            res.render("tablausuarios", { tablau: result });
             console.log("tabla de usuarios...");
 
-    });
+        });
+    } else {
+        res.redirect('/login');
+    }
 }
 
 controller.tablainsert = (req,res) => {

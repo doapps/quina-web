@@ -1,9 +1,18 @@
 const express = require('express');
-let path = require('path');
+const session = require('express-session');
+const path = require('path');
 const bodyParser = require('body-parser');
 const routes = require('./routes/routes');
 
 const app = express();
+
+//session
+app.use(session({
+    secret: 'doapps',
+    resave: true,
+    saveUninitialized: false
+}));
+
 //routes
 app.set("view engine","pug");
 app.use(bodyParser.json());
