@@ -26,22 +26,29 @@ controller.tablainsert = (req, res) => {
   const correos = req.body.correo;
   const roles = req.body.rol;
   const encrypt = crypto.createHash('md5').update(contra).digest('hex');
-
-  console.log('data: ' + nombre + ", " + apellido + ", " + contra + ", " + correos + ", " + roles + ", " + encrypt);
   db.query('select * from usuario where correo = ?', correos, (err, result) => {
     if (result.length > 0) {
       res.status(200).send({ message: 'El correo ya existe' });
     } else {
       const fecha = new Date();
-      db.query(('insert into usuario (nombre ,apellido,correo,contra,rol,estado,fecha_creacion,fecha_actualizacion) values(?,?,?,?,?,?,?,?)',
-      [nombre, apellido, correos, encrypt, roles, 'Habilitado', fecha, fecha], (err, result) => {
+      const sql = 'INSERT INTO usuario SET ?';
+      const values = {
+        'nombre': nombre, 
+        'apellido': apellido, 
+        'correo': correos, 
+        'contra': encrypt, 
+        'rol': roles, 
+        'estado': 'Habilitado', 
+        'fecha_creacion': fecha, 
+        'fecha_actualizacion': fecha
+      };
+      db.query(sql, values, (err, result) => {
         if (err) {
-          console.log('err: ' + err);
           res.status(200).send({ message: 'Ocurio un error' });
         } else {
           res.status(200).send({ message: 'Registro completo' });
         }
-      }));
+      });
     }
   });
 };
