@@ -6,15 +6,15 @@ const routes = require('./routes/routes');
 
 const app = express();
 
-//session
+
 app.use(session({
-    secret: 'doapps',
-    resave: true,
-    saveUninitialized: false
+  secret: 'doapps',
+  resave: true,
+  saveUninitialized: false,
 }));
 
-//routes
-app.set("view engine","pug");
+
+app.set('view engine', 'pug');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 

@@ -12,7 +12,7 @@ html(lang='en')
     link(href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css', rel='stylesheet')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js')
     //- link(href='../css/signin.css', rel='stylesheet')
-    script(src='../js/main.js')
+    script(src='../js/ingresos.js')
     style(type='text/css').
       .body-tables *{
         font-size: 14px;
@@ -23,6 +23,7 @@ html(lang='en')
       .form-group .btn-group{
         width: 100% !important;
       }
+            
       
   body.body-tables
     nav.navbar.navbar-expand-lg.navbar-dark(style="background-color:#a92e2a; margin-bottom: 30px;")
@@ -35,27 +36,46 @@ html(lang='en')
     .row.justify-content-center
       .col-md-6(style="margin-bottom: 30px;")
         .card-body
-          form(action='/tablausuarios', method='POST')
+          form
             .form-group
               input.form-control(type='text', id="titulo", name='titulo', placeholder='Titulo', autofocus='')
             .form-group
               input.form-control(type='text',id="descripcion", name='descripcion', placeholder='Descripción')
             .form-group
-              input.form-control(type='text',id="tipo" ,name='tipo', placeholder='Tipo')
+                label(style="color: #a94442") Tipo de Ingreso
             .form-group
-              input.form-control(type='text',id="moneda", name='moneda', placeholder='Tipo de Moneda')
+                input#contactChoice1(type='radio', name='contact1',value="Normal")
+                label(for='contactChoice1', style="margin-right: 60px;") Normal
+                input#contactChoice2(type='radio', name='contact1', value="Destraccion")
+                label(for='contactChoice2') Detracción
             .form-group
-              input.form-control(type='text',id="monto", name='monto', placeholder='Monto')
+                 label(style="color: #a94442") Tipo de Moneda
             .form-group
-              input.form-control(type='text',id="tipodocumento", name='tipodocumento', placeholder='Tipo de Documento')
+                input#contactChoice3(type='radio', name='contact2')
+                label(for='contactChoice3', style="margin-right: 58px;") Dolares
+                input#contactChoice4(type='radio', name='contact2')
+                label(for='contactChoice4') Soles
+            .form-group
+              input.form-control(type='text',id="moneda", name='moneda', placeholder='Monto')
+            .form-group
+                label(style="color: #a94442") Tipo de Documento
+            .form-group
+                input#contactChoice5(type='radio', name='contact3')
+                label(for='contactChoice5', style="margin-right: 90px;") Dni
+                input#contactChoice6(type='radio', name='contact3')
+                label(for='contactChoice6') Ruc
             .form-group
               input.form-control(type='text',id="numerodocumento", name='numerodocumento', placeholder='Numero de Documento')
             .form-group
               input.form-control(type='text',id="razon", name='razon', placeholder='Razon Social')
             .form-group
-              input.form-control(type='text',id="destino", name='destino', placeholder='Cuenta de Destino')
+                select.selectpicker(name='cuenta')
+                  each lista in listacuenta
+                    option(value=lista.NumeroCuenta) #{lista.NumeroCuenta}
             .form-group
-              input.form-control(type='text',id="componente", name='componente', placeholder='Tipo de Componente')
+              select.selectpicker(name='comprobante')
+                option(value="factura") Factura
+                option(value="boleta") Boleta
 
             .button-cnt.row.justify-content-center(style="padding-bottom: 35px; padding-top: 15px;")
                 button.btn.btn-primary#button-form-users(type='submit',style="background-color:#1f9bcf")
