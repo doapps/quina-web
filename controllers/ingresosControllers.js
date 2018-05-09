@@ -4,16 +4,15 @@ const db = require('../database/Connection');
 const controllers = {};
 
 controllers.listarcuenta = (req, res) => {
+  const { session } = req;
     db.query("select NumeroCuenta from cuenta;", (err, result, fields) => {
       if (err) {
         res.json(err);
       }
       db.query("select * from ingresos;", (err, results, fields) => {
-        res.render('tablaingresos', { listacuenta:result, listaingresos:results});
+        res.render('tablaingresos', { listacuenta:result, listaingresos:results,"nom":req.session.nom,
+        "apelli":req.session.apelli, "roles":req.session.roles });
       });
-      
-      
- 
     });
 };
 
@@ -43,4 +42,19 @@ controllers.ingresarinsert = (req, res) => {
 
 };
 
+controllers.eliminar = (req, res) => {
+  const valor = req.params.idingreso;
+  db.query('delete from ingresos where idingreso= ?', [valor], () => {
+    res.redirect('/tablaingresos');
+  });
+};
+
+
+
+controllers.editlistar = (req, res) => {
+  const { session } = req;
+    db.query("select NumeroCuenta from cuenta;", (err, result, fields) => {
+      res.render('ingresoedit', { editlista:result });
+     });
+}
 module.exports = controllers;

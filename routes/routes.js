@@ -18,7 +18,10 @@ router.get('/update/:id', userController.consultaedit);
 router.post('/update/:id', userController.refrescar);
 
 //tabla ingresos
+router.get('/ingresoedit', ingresosControllers.editlistar);
 router.get('/tablaingresos', ingresosControllers.listarcuenta);
 router.post('/tablaingresos', ingresosControllers.ingresarinsert);
+router.get('/eliminar/:idingreso', ingresosControllers.eliminar);
+
 
 module.exports = router;
