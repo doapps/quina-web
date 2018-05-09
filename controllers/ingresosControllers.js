@@ -4,21 +4,22 @@ const db = require('../database/Connection');
 const controllers = {};
 
 controllers.listarcuenta = (req, res) => {
-
-    db.query('select NumeroCuenta from cuenta;', (err, result) => {
+    db.query("select NumeroCuenta from cuenta;", (err, result, fields) => {
       if (err) {
         res.json(err);
-       
       }
-      res.render('tablaingresos', { listacuenta: result });
-      console.log('tabla de ingresos...');
+      db.query("select * from ingresos;", (err, results, fields) => {
+        res.render('tablaingresos', { listacuenta:result, listaingresos:results});
+      });
+      
+      
+ 
     });
-   
 };
 
 
-controllers.ingresoinsert = (req, res) => {
-  console.log('no sale');
+controllers.ingresarinsert = (req, res) => {
+  const { session } = req;
   const titulo = req.body.titulo;
   const descripcion = req.body.descripcion;
   const tipoingreso = req.body.contact1;
@@ -29,11 +30,17 @@ controllers.ingresoinsert = (req, res) => {
   const razon = req.body.razon;
   const cuenta = req.body.cuenta;
   const comprobante = req.body.comprobante;
-  console.log('no sale');
- db.query(('insert into ingresos (titulo,descripcion,tipo,tipo_moneda,fecha,monto,tipo_documento,numero_documento,razonSocial,cuenta_destino,tipo_componente) values(?,?,?,?,?,?,?,?,?,?,?)',
-  [titulo,descripcion,tipoingreso,tipomoneda,moneda,tipomoneda,moneda,tipodedocumento,numero,razon,cuenta,comprobante], () => {
-     res.status(200).send({ message: 'Registro completo' });
-    }));
+  const fecha = new Date();
+  const local=req.session.ides;
+  console.log(tipomoneda);
+  console.log(tipodedocumento);
+   db.query('insert into ingresos (titulo,descripcion,tipo,tipo_moneda,monto,tipo_documento,numero_documento,razonSocial,id,cuenta_destino,tipo_componente,fecha_creacion,fecha_actualizacion) values(?,?,?,?,?,?,?,?,?,?,?,?,?)',
+      [titulo,descripcion,tipoingreso,tipomoneda,moneda,tipodedocumento,numero,razon,local,cuenta,comprobante,fecha,fecha],() => {
+      res.status(200).send({ message: 'Registro completo' });
+      console.log(local  +" este es id");
+
+    });
 
 };
+
 module.exports = controllers;

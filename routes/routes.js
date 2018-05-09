@@ -19,6 +19,6 @@ router.post('/update/:id', userController.refrescar);
 
 //tabla ingresos
 router.get('/tablaingresos', ingresosControllers.listarcuenta);
-router.post('/tablaingresos', ingresosControllers.ingresoinsert);
+router.post('/tablaingresos', ingresosControllers.ingresarinsert);
 
 module.exports = router;

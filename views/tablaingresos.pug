@@ -36,7 +36,7 @@ html(lang='en')
     .row.justify-content-center
       .col-md-6(style="margin-bottom: 30px;")
         .card-body
-          form
+          form#listar-form
             .form-group
               input.form-control(type='text', id="titulo", name='titulo', placeholder='Titulo', autofocus='')
             .form-group
@@ -51,18 +51,18 @@ html(lang='en')
             .form-group
                  label(style="color: #a94442") Tipo de Moneda
             .form-group
-                input#contactChoice3(type='radio', name='contact2')
+                input#contactChoice3(type='radio', name='contact2',value="Dolares")
                 label(for='contactChoice3', style="margin-right: 58px;") Dolares
-                input#contactChoice4(type='radio', name='contact2')
+                input#contactChoice4(type='radio', name='contact2',value="Soles")
                 label(for='contactChoice4') Soles
             .form-group
               input.form-control(type='text',id="moneda", name='moneda', placeholder='Monto')
             .form-group
                 label(style="color: #a94442") Tipo de Documento
             .form-group
-                input#contactChoice5(type='radio', name='contact3')
+                input#contactChoice5(type='radio', name='contact3',value="DNI")
                 label(for='contactChoice5', style="margin-right: 90px;") Dni
-                input#contactChoice6(type='radio', name='contact3')
+                input#contactChoice6(type='radio', name='contact3',value="Ruc")
                 label(for='contactChoice6') Ruc
             .form-group
               input.form-control(type='text',id="numerodocumento", name='numerodocumento', placeholder='Numero de Documento')
@@ -85,34 +85,41 @@ html(lang='en')
         table.table.table-bordered.table-hover
           thead
             tr
-              th Id
               th Titulo
               th Descripcion
               th Tipo
               th Tipo de Moneda
-              th Fecha
               th Monto
               th Tipo de Documento
               th Numero de Documento
               th Razon Social
+              th ID Usuario
               th Cuenta de Destino
-              th Tipo de Componente
-          
-          //
-            each usuario in tablau
+              th Tipo de Comprobante
+              th Fecha_Creacion
+              th Fecha_Actualizacion
+              th Modificar
+              th Eliminar
+            each ingresos in listaingresos
               tr
-                td= usuario.nombre
-                td= usuario.apellido
-                td= usuario.correo
-                td= usuario.rol
-                td= usuario.estado
-                td= usuario.fecha_creacion
-                td= usuario.fecha_actualizacion
+                td= ingresos.titulo
+                td= ingresos.descripcion
+                td= ingresos.tipo
+                td= ingresos.tipo_moneda
+                td= ingresos.monto
+                td= ingresos.tipo_documento
+                td= ingresos.numero_documento
+                td= ingresos.razonSocial
+                td= ingresos.id
+                td= ingresos.cuenta_destino
+                td= ingresos.tipo_componente
+                td= ingresos.fecha_creacion
+                td= ingresos.fecha_actualizacion
                 td
-                    a.btn.btn-info(href='/update/'+usuario.id,style="background-color:#4dbf4b") Edit
+                    a.btn.btn-info(href='#',style="background-color:#4dbf4b") Edit
                     
                 td 
-                    a.listoconfirmar.btn.btn-danger(href='/delete/'+usuario.id) Delete
+                    a.listoconfirmar.btn.btn-danger(href='#') Delete
   
         
 

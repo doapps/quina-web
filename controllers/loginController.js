@@ -8,26 +8,34 @@ user.validarUsuario = (req, res) => {
   const { email } = req.body;
   const passwords = req.body.password;
   const encryptPassword = crypto.createHash('md5').update(passwords).digest('hex');
-
-  db.query('select correo,contra from usuario where correo=? and contra=?', [email, encryptPassword], (err, result) => {
-    let vercorreo = false;
-    let vercontra = false;
+  db.query('select correo,contra,rol,nombre,apellido,id from usuario where correo=? and contra=?', [email, encryptPassword], (err, result) => {
+    let mensaje="";
     if (result.length === 0) {
-      vercorreo = false;
-      vercontra = false;
+      mensaje="Datos Incorrectos"
+      console.log(mensaje);
     } else {
-      const rcor = result[0].correo === email;
-      const rcon = result[0].contra === encryptPassword;
-      if (rcor === true) {
-        vercorreo = true;
-        if (rcon === true) {
-          vercontra = true;
-          session.email = email;
-        }
+      let rcor = result[0].correo === email;
+      let rcon = result[0].contra === encryptPassword;
+      console.log(mensaje);
+      if (rcor === true && rcon === true) {
+            let nom=result[0].nombre;
+            let apelli=result[0].apellido;
+            let roles=result[0].rol;
+            let ides=result[0].id;
+            mensaje="Datos Ingresados correctamente"
+            session.email = email;
+            session.nom = nom;
+            session.ides = ides;
+            session.apelli = apelli;
+            session.roles = roles;
+
       }
+     
     }
-    res.render('login', { vercorreo, vercontra });
+     res.status(200).send({ message: mensaje, email});
   });
+
+
 };
 
 user.logout = (req, res) => {
