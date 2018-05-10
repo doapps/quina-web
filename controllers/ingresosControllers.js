@@ -23,20 +23,23 @@ controllers.listarcuenta = (req, res) => {
   });
 };
 controllers.ingresarinsert = (req, res) => {
-// const { session } = req;
   const {
-    titulo, descripcion, tipoingreso, tipomoneda, moneda, tipodedocumento,
-    numero, razon, cuenta, comprobante, local,
+    titulo, descripcion, contact1, contact2, moneda, contact3,
+    numerodocumento, razon, cuenta, comprobante,
   } = req.body;
+
+  const { ides } = req.session;
+
   const fecha = new Date();
-  console.log(tipomoneda);
-  console.log(tipodedocumento);
+  console.log(titulo + descripcion + contact1 + contact2 + moneda + contact3 + numerodocumento + razon + cuenta + comprobante);
+  console.log(contact2);
+  console.log(ides);
   db.query(
     'insert into ingresos (titulo,descripcion,tipo,tipo_moneda,monto,tipo_documento,numero_documento,razonSocial,id,cuenta_destino,tipo_componente,fecha_creacion,fecha_actualizacion) values(?,?,?,?,?,?,?,?,?,?,?,?,?)',
-    [titulo, descripcion, tipoingreso, tipomoneda, moneda, tipodedocumento,
-      numero, razon, local, cuenta, comprobante, fecha, fecha], () => {
+    [titulo, descripcion, contact1,
+      contact2, moneda, contact3,
+      numerodocumento, razon, ides, cuenta, comprobante, fecha, fecha], () => {
       res.status(200).send({ message: 'Registro completo' });
-      // console.log(`este es id ${local}`);
     },
   );
 };
