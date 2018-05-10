@@ -31,9 +31,6 @@ controllers.ingresarinsert = (req, res) => {
   const { ides } = req.session;
 
   const fecha = new Date();
-  console.log(titulo + descripcion + contact1 + contact2 + moneda + contact3 + numerodocumento + razon + cuenta + comprobante);
-  console.log(contact2);
-  console.log(ides);
   db.query(
     'insert into ingresos (titulo,descripcion,tipo,tipo_moneda,monto,tipo_documento,numero_documento,razonSocial,id,cuenta_destino,tipo_componente,fecha_creacion,fecha_actualizacion) values(?,?,?,?,?,?,?,?,?,?,?,?,?)',
     [titulo, descripcion, contact1,
@@ -53,9 +50,9 @@ controllers.eliminar = (req, res) => {
 
 controllers.ingresosEditActualizar = (req, res) => {
   const { session } = req;
-  const actualizar = req.params.idingreso; 
-  session.actualizar = actualizar;
+  const actualizar = req.params.idingreso;
   db.query('select titulo,descripcion,tipo,tipo_moneda,monto,numero_documento,razonSocial from ingresos where idingreso=?', [actualizar], (err, result) => {
+    session.actualizar = actualizar;
     db.query('select NumeroCuenta from cuenta;', (error, results) => {
       res.render('ingresoedit', { datoingreso: result, editlista: results });
     });
@@ -65,16 +62,19 @@ controllers.ingresosEditActualizar = (req, res) => {
 controllers.ingresosActualizar = (req, res) => {
   const {
     titulo, descripcion,
-    tipoingreso, tipomoneda, moneda, tipodedocumento, numero, razon, cuenta, comprobante,
+    contact1, contact2, monto, contact3, numerodocumento, razonSocial, cuenta, comprobante,
   } = req.body;
   const { actualizar } = req.session;
   const fecha = new Date();
   console.log(actualizar);
   db.query(
     'update ingresos set titulo=?,descripcion=?,tipo=?,tipo_moneda=?,monto=?,tipo_documento=?,numero_documento=?,razonSocial=?,cuenta_destino=?,tipo_componente=?,fecha_actualizacion=? where idingreso=?',
-    [titulo, descripcion, tipoingreso, tipomoneda, moneda,
-      tipodedocumento, numero, razon, cuenta, comprobante, fecha, actualizar], () => {
-      res.redirect('/tablaingresos');
+    [titulo, descripcion, contact1, contact2, monto, contact3,
+      numerodocumento, razonSocial, cuenta, comprobante, fecha, actualizar], (error) => {
+      if (error) {
+        res.json(error);
+      }
+      res.status(200).send({ message: 'Actualizacion completa' });
     },
   );
 };

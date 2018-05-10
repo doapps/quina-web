@@ -9,7 +9,7 @@ $(document).ready(() => {
       let monto=$('#moneda').val();
       let numero=$('#numerodocumento').val();
       let tipodocumento=$('input[name=contact3]:checked').val();
-      
+    
     if(titulo===''||descripcion===''||social===''||tipoingreso===''||tipomoneda===''||monto===''||numero===''||tipodocumento===''){
       alert("Complete todos los datos no debe haber campos vacios");
     }else{
