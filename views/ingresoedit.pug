@@ -10,6 +10,7 @@ html(lang='es')
     link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css', rel='stylesheet')
     link(href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css', rel='stylesheet')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js')
+    script(src='../js/ingresosEdit.js')
     style(type='text/css').
       .body-tables *{
         font-size: 15px;
@@ -20,57 +21,60 @@ html(lang='es')
       .form-group .btn-group{
         width: 100% !important;
       }
-    
   body.body-tables
     nav.navbar.navbar-expand-lg.navbar-dark(style="background-color:#28a778; margin-bottom: 30px;")
     .row.justify-content-center
       .col-md-6  
         a.navbar-brand(href='#', style="height: auto; margin-bottom: 15px; color:#4bbf73;font-size: 25px;") Editar Ingresos
     .row.justify-content-center
-      
       .col-md-6(style="margin-bottom: 30px;")
         .card-body
-          form(action='', method='POST')
+           form#ingreso-edit
             .form-group
-              input.form-control(type='text', id="titulo", name='titulo', placeholder='Titulo', autofocus='')
+              p(style="margin-bottom: 2px;color: #9c9999;") Titulo
+              input.form-control(type='text', id="titulo", name='titulo',value=datoingreso[0].titulo, placeholder='Titulo', autofocus='')
             .form-group
-              input.form-control(type='text',id="descripcion", name='descripcion', placeholder='Descripción')
+              p(style="margin-bottom: 2px;color: #9c9999;") Descripcion
+              input.form-control(type='text',id="descripcion", value=datoingreso[0].descripcion,name='descripcion', placeholder='Descripción')
             .form-group
-                label(style="color:#2267aff2") Tipo de Ingreso
+                label(style="color:#9c9999") Tipo de Ingreso
             .form-group
                 input#contactChoice1(type='radio', name='contact1',value="Normal")
                 label(for='contactChoice1', style="margin-right: 60px;") Normal
                 input#contactChoice2(type='radio', name='contact1', value="Destraccion")
                 label(for='contactChoice2') Detracción
             .form-group
-                 label(style="color: #2267aff2") Tipo de Moneda
+                 label(style="color: #9c9999") Tipo de Moneda
             .form-group
                 input#contactChoice3(type='radio', name='contact2',value="Dolares")
                 label(for='contactChoice3', style="margin-right: 58px;") Dolares
                 input#contactChoice4(type='radio', name='contact2',value="Soles")
                 label(for='contactChoice4') Soles
             .form-group
-              input.form-control(type='number',id="moneda",step="0.01", name='moneda', placeholder='Monto')
+              p(style="margin-bottom: 2px;color: #9c9999;") Monto
+              input.form-control(type='number',id="moneda",value=datoingreso[0].monto,step="0.01", name='moneda', placeholder='Monto')
             .form-group
-                label(style="color: #2267aff2") Tipo de Documento
+                label(style="color: #2267aff2;color: #9c9999;") Tipo de Documento
             .form-group
                 input#contactChoice5(type='radio',class="documento1", name='contact3',value="DNI")
                 label(for='contactChoice5', style="margin-right: 90px;") Dni
                 input#contactChoice6(type='radio',class="documento2", name='contact3',value="Ruc")
                 label(for='contactChoice6') Ruc
             .form-group
-              input.form-control(type='number',id="numerodocumento", name='numerodocumento', placeholder='Numero de Documento')
+              p(style="margin-bottom: 2px;color: #9c9999;") Numero de  Documento
+              input.form-control(type='number',id="numerodocumento",value=datoingreso[0].numero_documento, name='numerodocumento', placeholder='Numero de Documento')
             .form-group
-              input.form-control(type='text',id="razon", name='razon', placeholder='Razon Social')
+              p(style="margin-bottom: 2px;color: #9c9999;") Razon Social
+              input.form-control(type='text',id="razon",value=datoingreso[0].razonSocial, name='razon', placeholder='Razon Social')
             .form-group
-                select.selectpicker(name='cuenta')
-                  each lista in editlista
-                    option(value=lista.NumeroCuenta) #{lista.NumeroCuenta}
+                p(style="margin-bottom: 2px;color: #9c9999;") Numero de Cuenta
+                
             .form-group
+              p(style="margin-bottom: 2px;color: #9c9999;") Numero de Comprobante
               select.selectpicker(name='comprobante')
                 option(value="factura") Factura
                 option(value="boleta") Boleta
             .button-cnt.row.justify-content-center(style="padding-bottom: 35px; padding-top: 15px;")
                 button.btn.btn-primary(type='submit',style="background-color:#28a76c")
                   | Editar
-                a.btn.btn-primary(href="/tablausuarios",style="background-color:#d46517;margin-left: 30px;") Salir
+                a.btn.btn-primary(href="/tablaingresos",style="background-color:#d46517;margin-left: 30px;") Salir

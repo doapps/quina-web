@@ -18,11 +18,11 @@ user.validarUsuario = (req, res) => {
       const rcon = result[0].contra === encryptPassword;
       console.log(mensaje);
       if (rcor === true && rcon === true) {
-        let nom = result[0].nombre;
-        let apelli = result[0].apellido;
-        let roles = result[0].rol;
-        let ides = result[0].id;
-        mensaje = "Datos Ingresados correctamente"
+        const nom = result[0].nombre;
+        const apelli = result[0].apellido;
+        const roles = result[0].rol;
+        const ides = result[0].id;
+        mensaje = 'Datos Ingresados correctamente';
         session.email = email;
         session.nom = nom;
         session.ides = ides;
@@ -32,8 +32,6 @@ user.validarUsuario = (req, res) => {
     }
     res.status(200).send({ message: mensaje, email });
   });
-
-
 };
 
 user.logout = (req, res) => {

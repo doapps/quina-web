@@ -17,11 +17,11 @@ router.get('/delete/:id', userController.delete);
 router.get('/update/:id', userController.consultaedit);
 router.post('/update/:id', userController.refrescar);
 
-//tabla ingresos
-router.get('/ingresoedit', ingresosControllers.editlistar);
+// tabla ingresos
 router.get('/tablaingresos', ingresosControllers.listarcuenta);
 router.post('/tablaingresos', ingresosControllers.ingresarinsert);
 router.get('/eliminar/:idingreso', ingresosControllers.eliminar);
-
+router.get('/actualizar/:idingreso', ingresosControllers.ingresosEditActualizar);
+router.post('/actualizar', ingresosControllers.ingresosActualizar);
 
 module.exports = router;

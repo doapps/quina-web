@@ -4,15 +4,19 @@ const crypto = require('crypto');
 const controller = {};
 
 controller.tablauser = (req, res) => {
-  const { session } = req;
-  if (session.email) {
+  const {
+    nom, apelli, roles, email,
+  } = req.session;
+  if (email) {
     db.query('select * from  usuario ', (err, result) => {
       if (err) {
         res.json(err);
       }
       res.render('tablausuarios', {
-        tablau: result, "nom": req.session.nom,
-        "apelli": req.session.apelli, "roles": req.session.roles
+        tablau: result,
+        nom,
+        apelli,
+        roles,
       });
       console.log('tabla de usuarios...');
     });
@@ -34,19 +38,21 @@ controller.tablainsert = (req, res) => {
       res.status(200).send({ message: 'El correo ya existe' });
     } else {
       const fecha = new Date();
+      const fecha2 = new Date();
       const sql = 'INSERT INTO usuario SET ?';
+      const habilitar = 'Habilitado';
       const values = {
-        'nombre': nombre,
-        'apellido': apellido,
-        'correo': correos,
-        'contra': encrypt,
-        'rol': roles,
-        'estado': 'Habilitado',
-        'fecha_creacion': fecha,
-        'fecha_actualizacion': fecha
+        nombre,
+        apellido,
+        correos,
+        encrypt,
+        roles,
+        habilitar,
+        fecha,
+        fecha2,
       };
-      db.query(sql, values, (err, result) => {
-        if (err) {
+      db.query(sql, values, (error) => {
+        if (error) {
           res.status(200).send({ message: 'Ocurio un error' });
         } else {
           res.status(200).send({ message: 'Registro completo' });
