@@ -10,8 +10,10 @@ controller.tablauser = (req, res) => {
       if (err) {
         res.json(err);
       }
-      res.render('tablausuarios', { tablau: result,"nom":req.session.nom,
-      "apelli":req.session.apelli,"roles":req.session.roles});
+      res.render('tablausuarios', {
+        tablau: result, "nom": req.session.nom,
+        "apelli": req.session.apelli, "roles": req.session.roles
+      });
       console.log('tabla de usuarios...');
     });
   } else {
@@ -34,13 +36,13 @@ controller.tablainsert = (req, res) => {
       const fecha = new Date();
       const sql = 'INSERT INTO usuario SET ?';
       const values = {
-        'nombre': nombre, 
-        'apellido': apellido, 
-        'correo': correos, 
-        'contra': encrypt, 
-        'rol': roles, 
-        'estado': 'Habilitado', 
-        'fecha_creacion': fecha, 
+        'nombre': nombre,
+        'apellido': apellido,
+        'correo': correos,
+        'contra': encrypt,
+        'rol': roles,
+        'estado': 'Habilitado',
+        'fecha_creacion': fecha,
         'fecha_actualizacion': fecha
       };
       db.query(sql, values, (err, result) => {
