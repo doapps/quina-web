@@ -8,7 +8,7 @@ function connect() {
     conn = mysql.createConnection({
       host: '',
       user: 'root',
-      password: '',
+      password: 'root',
       database: 'judas',
       multipleStatements: true,
     });
