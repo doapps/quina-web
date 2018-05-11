@@ -6,10 +6,10 @@ let conn;
 function connect() {
   if (!conn) {
     conn = mysql.createConnection({
-      host: process.env.DB_HOST,
-      user: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_DATABASE,
+      host: '',
+      user: 'root',
+      password: '',
+      database: 'judas',
       multipleStatements: true,
     });
     conn.connect((err) => {

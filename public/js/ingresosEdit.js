@@ -9,23 +9,30 @@ $(document).ready(() => {
         let numero=$('#numerodocumento').val();
         let tipodocumento=$('input[name=contact3]:checked').val();
 
-        if(/^([0-9])*$/.test(social) === true){
-            alert("No se aceptan numeros en el campo de Razon Social");
-        }else{
-            if(tipodocumento==="DNI"){
-                if(numero.length===8){
-                    updateingresos($('#ingreso-edit').serialize());
-                }else{
-                    alert("El Numero de DNI debe tener 8 digitos");
-                }
-            }else if(tipodocumento==="Ruc"){
-                if(numero.length===11){
-                    updateingresos($('#ingreso-edit').serialize());
-                }else{
-                alert("El Numero de ruc debe tener 11 digitos");
+
+
+
+    if(($('.ingreso').is(':checked') || $('.ingreso2').is(':checked')) && ($('.moneda').is(':checked') || $('.moneda2').is(':checked')) && ($('.documento').is(':checked') || $('.documento2').is(':checked'))){
+            if(/^([0-9])*$/.test(social) === true){
+                alert("No se aceptan numeros en el campo de Razon Social");
+            }else{
+                if(tipodocumento==="DNI"){
+                    if(numero.length===8){
+                        updateingresos($('#ingreso-edit').serialize());
+                    }else{
+                        alert("El Numero de DNI debe tener 8 digitos");
+                    }
+                }else if(tipodocumento==="Ruc"){
+                    if(numero.length===11){
+                        updateingresos($('#ingreso-edit').serialize());
+                    }else{
+                    alert("El Numero de ruc debe tener 11 digitos");
+                    }
                 }
             }
-        }
+    }else{
+        alert("Complete todos los datos no debe haber campos vacios");
+    }
 
  }
     
@@ -44,13 +51,4 @@ $(document).ready(() => {
             }
           });
     }
-
-
-    $('.ver').click((event) => {
-        if($('.first').find('input').attr('checked')===false){
-            alert("bien");
-        }else{
-            alert("mal");
-        }
-      });
 });

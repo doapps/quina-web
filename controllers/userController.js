@@ -39,24 +39,10 @@ controller.tablainsert = (req, res) => {
     } else {
       const fecha = new Date();
       const fecha2 = new Date();
-      const sql = 'INSERT INTO usuario SET ?';
       const habilitar = 'Habilitado';
-      const values = {
-        nombre,
-        apellido,
-        correos,
-        encrypt,
-        roles,
-        habilitar,
-        fecha,
-        fecha2,
-      };
-      db.query(sql, values, (error) => {
-        if (error) {
-          res.status(200).send({ message: 'Ocurio un error' });
-        } else {
-          res.status(200).send({ message: 'Registro completo' });
-        }
+      db.query('insert into  usuario (nombre,apellido,correo,contra,rol,estado,fecha_creacion,fecha_actualizacion)values(?,?,?,?,?,?,?,?)',
+      [nombre,apellido,correos,encrypt,roles,habilitar,fecha,fecha2], (error,results) => {
+        res.status(200).send({ message: 'Registro completo' });
       });
     }
   });
@@ -71,22 +57,25 @@ controller.delete = (req, res) => {
 
 
 controller.consultaedit = (req, res) => {
-  const actualizar = req.params.id;
-  db.query('select id,nombre,apellido,correo,rol,estado  from usuario where id=?', [actualizar], (err, result) => {
+  const {session} = req;
+  const actualizaUsuario = req.params.id;
+  session.actualizaUsuario=actualizaUsuario;
+  db.query('select id,nombre,apellido,correo,rol,estado  from usuario where id=?', [actualizaUsuario], (err, result) => {
     res.render('usuarioedit', { dato: result });
   });
 };
 
 controller.refrescar = (req, res) => {
-  const update = req.params.id;
+  const { actualizaUsuario } = req.session;
   const nom = req.body.nombre;
   const apelli = req.body.apellido;
   const email = req.body.correo;
   const rul = req.body.rol;
   const estatus = req.body.estado;
   const fecha = new Date();
-  db.query('update usuario set nombre=?,apellido=?,correo=?,rol=?,estado=?,fecha_actualizacion=? where id=?', [nom, apelli, email, rul, estatus, fecha, update], () => {
-    res.redirect('/tablausuarios');
+  db.query('update usuario set nombre=?,apellido=?,correo=?,rol=?,estado=?,fecha_actualizacion=? where id=?', [nom, apelli, email, rul, estatus, fecha, actualizaUsuario], (err, result) => {
+    res.status(200).send({ message: 'Acción con exito' });
+    
   });
 };
 

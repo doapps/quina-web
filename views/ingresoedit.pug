@@ -25,7 +25,7 @@ html(lang='es')
     nav.navbar.navbar-expand-lg.navbar-dark(style="background-color:#28a778; margin-bottom: 30px;")
     .row.justify-content-center
       .col-md-6  
-        a.navbar-brand(href='#', style="height: auto; margin-bottom: 15px; color:#4bbf73;font-size: 25px;") Editar Ingresos
+        a.navbar-brand(href='#', style="height: auto; margin-bottom: 15px; color:#4bbf73;font-size: 25px;font-weight: bold;") Editar Ingresos
     .row.justify-content-center
       .col-md-6(style="margin-bottom: 30px;")
         .card-body
@@ -38,25 +38,25 @@ html(lang='es')
               input.form-control(type='text',id="descripcion", value=datoingreso[0].descripcion,name='descripcion', placeholder='Descripción')
             .form-group
                 label(style="color:#9c9999") Tipo de Ingreso
-            .form-group.first
-                input#contactChoice1(type='radio', name='contact1',value="Normal")
+            .form-group
+                input#contactChoice1(type='radio',class="ingreso", name='contact1',value="Normal")
                 label(for='contactChoice1', style="margin-right: 60px;") Normal
-                input#contactChoice2(type='radio', name='contact1', value="Destraccion")
+                input#contactChoice2(type='radio', class="ingreso2",name='contact1', value="Destraccion")
                 label(for='contactChoice2') Detracción
             .form-group
                  label(style="color: #9c9999") Tipo de Moneda
-            .form-group.first2
-                input#contactChoice3(type='radio', name='contact2',value="Dolares")
+            .form-group
+                input#contactChoice3(type='radio',class="moneda" name='contact2',value="Dolares")
                 label(for='contactChoice3', style="margin-right: 58px;") Dolares
-                input#contactChoice4(type='radio', name='contact2',value="Soles")
+                input#contactChoice4(type='radio',class="moneda2" name='contact2',value="Soles")
                 label(for='contactChoice4') Soles
             .form-group
               p(style="margin-bottom: 2px;color: #9c9999;") Monto
               input.form-control(type='number',id="moneda",value=datoingreso[0].monto,step="0.01", name='monto', placeholder='Monto')
             .form-group
                 label(style="color: #2267aff2;color: #9c9999;") Tipo de Documento
-            .form-group.first3
-                input#contactChoice5(type='radio',class="documento1", name='contact3',value="DNI")
+            .form-group
+                input#contactChoice5(type='radio',class="documento", name='contact3',value="DNI")
                 label(for='contactChoice5', style="margin-right: 90px;") Dni
                 input#contactChoice6(type='radio',class="documento2", name='contact3',value="Ruc")
                 label(for='contactChoice6') Ruc

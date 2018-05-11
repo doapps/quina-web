@@ -15,7 +15,7 @@ router.get('/tablausuarios', userController.tablauser);
 router.post('/tablausuarios', userController.tablainsert);
 router.get('/delete/:id', userController.delete);
 router.get('/update/:id', userController.consultaedit);
-router.post('/update/:id', userController.refrescar);
+router.post('/actualizarUsuario', userController.refrescar);
 
 // tabla ingresos
 router.get('/tablaingresos', ingresosControllers.listarcuenta);

@@ -45,23 +45,23 @@ html(lang='en')
             .form-group
                 label(style="color: #a94442") Tipo de Ingreso
             .form-group
-                input#contactChoice1(type='radio', name='contact1',value="Normal")
+                input#contactChoice1(type='radio',class="ingreso", name='contact1',value="Normal")
                 label(for='contactChoice1', style="margin-right: 60px;") Normal
-                input#contactChoice2(type='radio', name='contact1', value="Destraccion")
+                input#contactChoice2(type='radio', class="ingreso2",name='contact1', value="Destraccion")
                 label(for='contactChoice2') Detracción
             .form-group
                  label(style="color: #a94442") Tipo de Moneda
             .form-group
-                input#contactChoice3(type='radio', name='contact2',value="Dolares")
+                input#contactChoice3(type='radio',class="moneda" name='contact2',value="Dolares")
                 label(for='contactChoice3', style="margin-right: 58px;") Dolares
-                input#contactChoice4(type='radio', name='contact2',value="Soles")
+                input#contactChoice4(type='radio',class="moneda2" name='contact2',value="Soles")
                 label(for='contactChoice4') Soles
             .form-group
               input.form-control(type='number',id="moneda",step="0.01", name='moneda', placeholder='Monto')
             .form-group
                 label(style="color: #a94442") Tipo de Documento
             .form-group
-                input#contactChoice5(type='radio',class="documento1", name='contact3',value="DNI")
+                input#contactChoice5(type='radio',class="documento", name='contact3',value="DNI")
                 label(for='contactChoice5', style="margin-right: 90px;") Dni
                 input#contactChoice6(type='radio',class="documento2", name='contact3',value="Ruc")
                 label(for='contactChoice6') Ruc
