@@ -49,10 +49,14 @@ controller.tablainsert = (req, res) => {
 };
 
 controller.delete = (req, res) => {
+  const{ ides } = req.session;
   const valor = req.params.id;
-  db.query('delete from usuario where id= ?', [valor], () => {
+  console.log(ides);
+  console.log(valor);
+    db.query('delete from usuario where id= ?', [valor], () => {
     res.redirect('/tablausuarios');
   });
+  
 };
 
 

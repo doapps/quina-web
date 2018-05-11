@@ -27,12 +27,13 @@ $(document).ready(() => {
   });
 
   $('.user-delete').click((event) => {
-    let confi = confirm('Esta seguro que desea eliminar');
-    if (confi) {
-      alert('Eliminado correctamente');
-    } else {
-      event.preventDefault();
-    }
+      let confi = confirm('Esta seguro que desea eliminar');
+      if (confi) {
+        alert('Eliminado correctamente');
+      } else {
+        event.preventDefault();
+      }
+     
   });
 
  // AJAX Functions

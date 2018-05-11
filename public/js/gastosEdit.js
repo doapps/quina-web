@@ -1,0 +1,34 @@
+$(document).ready(() => {
+    $('#gastos-edit').on('submit', (event) => {
+        let tipoingreso=$('input[name=contact1]:checked').val();
+        let tipomoneda=$('input[name=contact2]:checked').val();
+        let comprobante=$('input[name=contact3]:checked').val();
+
+        
+  if(($('.ingreso').is(':checked') || $('.ingreso2').is(':checked')) && ($('.moneda').is(':checked') || $('.moneda2').is(':checked')) && ($('.Comprobante').is(':checked') || $('.Comprobante2').is(':checked'))){
+    actualziargastos($('#gastos-edit').serialize());
+  }else{
+    alert("Complete todos los datos no debe haber campos vacios");
+  }
+    });
+
+
+  
+
+  function actualziargastos(formData){
+    $.ajax({
+      type:'POST',
+      url:'/actualizargastos',
+      data: formData,
+      success: (data) => {
+        alert(data.message);
+        window.location.href ="/tablagastos";
+      },
+      error: (jqXHR, textStatus, err) => {
+        alert('text status ' + textStatus + ', err ' + err);
+      }
+    });
+ } 
+
+
+});
