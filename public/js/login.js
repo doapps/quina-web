@@ -15,7 +15,11 @@ $(document).ready(() => {
           window.location.href ="/login";
         }else {
           alert(data.message);
-          window.location.href ="/tablausuarios";
+          if(data.roles === "Operador"){
+             window.location.href ="/tablaingresos";
+          }else{
+            window.location.href ="/tablausuarios";
+          }
         }
       },
       error: (jqXHR, textStatus, err) => {

@@ -9,23 +9,33 @@ $(document).ready(() => {
       let monto=$('#moneda').val();
       let numero=$('#numerodocumento').val();
       let tipodocumento=$('input[name=contact3]:checked').val();
-    
-
-  if(($('.ingreso').is(':checked') || $('.ingreso2').is(':checked')) && ($('.moneda').is(':checked') || $('.moneda2').is(':checked')) && ($('.documento').is(':checked') || $('.documento2').is(':checked'))){
-        if(/^([0-9])*$/.test(social) === true){
-            alert("No se aceptan numeros en el campo de Razon Social");
+      let cuenta=$('#listacuenta').val();
+      let comprobante=$('#Comprobante').val();
+        alert(cuenta +"    "+comprobante);
+      event.preventDefault();
+  if(($('.ingreso').is(':checked') || $('.ingreso2').is(':checked')) 
+  && ($('.moneda').is(':checked') || $('.moneda2').is(':checked')) &&
+   ($('.documento').is(':checked') || $('.documento2').is(':checked'))){
+        if(cuenta === null && comprobante === null){
+            alert("Complete todos los datos no debe haber campos vacios");
         }else{
-            if(tipodocumento==="DNI"){
-                if(numero.length===8){
-                    listar($('#listar-form').serialize());
-                }else{
-                    alert("El Numero de DNI debe tener 8 digitos");
-                }
-            }else if(tipodocumento==="Ruc"){
-                if(numero.length===11){
-                    listar($('#listar-form').serialize());
-                }else{
-                   alert("El Numero de ruc debe tener 11 digitos");
+            if(/^([0-9])*$/.test(social) === true){
+                alert("No se aceptan numeros en el campo de Razon Social");
+            }else{
+                if(tipodocumento==="DNI"){
+                    if(numero.length===8){
+                        listar($('#listar-form').serialize());
+                        location.reload();
+                    }else{
+                        alert("El Numero de DNI debe tener 8 digitos");
+                    }
+                }else if(tipodocumento==="RUC"){
+                    if(numero.length===11){
+                        listar($('#listar-form').serialize());
+                        location.reload();
+                    }else{
+                        alert("El Numero de ruc debe tener 11 digitos");
+                    }
                 }
             }
         }
@@ -53,7 +63,6 @@ $(document).ready(() => {
       data: formData,
       success: (data) => {
         alert(data.message);
-        location.reload();
       },
       error: (jqXHR, textStatus, err) => {
         alert('text status ' + textStatus + ', err ' + err);

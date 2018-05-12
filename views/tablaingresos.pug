@@ -25,12 +25,21 @@ html(lang='en')
       }
   body.body-tables
     nav.navbar.navbar-expand-lg.navbar-dark(style="background-color:#a92e2a; margin-bottom: 30px;")
-      a.btn.btn-info(href="/tablausuarios",style="background-color:#b33434; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Usuarios
-      a.btn.btn-info(href="/tablaingresos",style="background-color:#d84945; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Ingresos
-      a.btn.btn-info(href="/tablagastos",style="background-color:#b33434; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Gastos
-      p(style="margin-right: 20px; color: #f5f5f5;")=roles
-      p(style="margin-right: 20px; color: #f5f5f5;")=nom
-      p(style="color: #f5f5f5;")=apelli
+      if roles === "Operador"
+        a.btn.btn-info(href="/tablaingresos",style="background-color:#d84945; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Ingresos
+        a.btn.btn-info(href="/tablagastos",style="background-color:#b33434; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Gastos
+        a.btn.btn-info(href="/logout",style="background-color:#e45d1c; margin-right: 20px;border-color: rgba(255,255,255,.15);") Salir
+        p(style="margin-right: 20px; color: #f5f5f5;")=roles
+        p(style="margin-right: 20px; color: #f5f5f5;")=nom
+        p(style="color: #f5f5f5;")=apelli
+      else 
+        a.btn.btn-info(href="/tablausuarios",style="background-color:#b33434; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Usuarios
+        a.btn.btn-info(href="/tablaingresos",style="background-color:#d84945; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Ingresos
+        a.btn.btn-info(href="/tablagastos",style="background-color:#b33434; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Gastos
+        a.btn.btn-info(href="/logout",style="background-color:#e45d1c; margin-right: 20px;border-color: rgba(255,255,255,.15);") Salir
+        p(style="margin-right: 20px; color: #f5f5f5;")=roles
+        p(style="margin-right: 20px; color: #f5f5f5;")=nom
+        p(style="color: #f5f5f5;")=apelli
     .row.justify-content-center
       .col-md-6  
         a.navbar-brand(href='#', style="height: auto; margin-bottom: 15px;font-size: 24px;font-weight: bold;color: #ec6a0d") Registro de Ingresos
@@ -43,14 +52,14 @@ html(lang='en')
             .form-group
               input.form-control(type='text',id="descripcion", name='descripcion', placeholder='Descripción')
             .form-group
-                label(style="color: #a94442") Tipo de Ingreso
+                label(style="color: #9c9999") Tipo de Ingreso
             .form-group
                 input#contactChoice1(type='radio',class="ingreso", name='contact1',value="Normal")
                 label(for='contactChoice1', style="margin-right: 60px;") Normal
                 input#contactChoice2(type='radio', class="ingreso2",name='contact1', value="Destraccion")
                 label(for='contactChoice2') Detracción
             .form-group
-                 label(style="color: #a94442") Tipo de Moneda
+                 label(style="color: #9c9999") Tipo de Moneda
             .form-group
                 input#contactChoice3(type='radio',class="moneda" name='contact2',value="Dolares")
                 label(for='contactChoice3', style="margin-right: 58px;") Dolares
@@ -59,25 +68,34 @@ html(lang='en')
             .form-group
               input.form-control(type='number',id="moneda",step="0.01", name='moneda', placeholder='Monto')
             .form-group
-                label(style="color: #a94442") Tipo de Documento
+                label(style="color: #9c9999") Tipo de Documento
             .form-group
                 input#contactChoice5(type='radio',class="documento", name='contact3',value="DNI")
                 label(for='contactChoice5', style="margin-right: 90px;") Dni
-                input#contactChoice6(type='radio',class="documento2", name='contact3',value="Ruc")
+                input#contactChoice6(type='radio',class="documento2", name='contact3',value="RUC")
                 label(for='contactChoice6') Ruc
+            .form-group
+                label(style="color: #9c9999") Numero de Documento
             .form-group
               input.form-control(type='number',id="numerodocumento", name='numerodocumento', placeholder='Numero de Documento')
             .form-group
+                label(style="color: #9c9999") Razon Social
+            .form-group
               input.form-control(type='text',id="razon", name='razon', placeholder='Razon Social')
             .form-group
-                select.selectpicker(name='cuenta')
+                label(style="color: #9c9999") Numero de Cuenta
+            .form-group
+                select.selectpicker(name='cuenta',id="listacuenta")
+                  option(value="" selected disabled)  Seleccione Cuenta
                   each lista in listacuenta
                     option(value=lista.NumeroCuenta) #{lista.NumeroCuenta}
             .form-group
-              select.selectpicker(name='comprobante')
-                option(value="factura") Factura
-                option(value="boleta") Boleta
-
+                label(style="color: #9c9999") Tipo de Comprobante
+            .form-group
+              select.selectpicker(name='comprobante',id="Comprobante")
+                option(value="" selected disabled) Seleccione Tipo de Comprobante
+                option(value="Factura") Factura
+                option(value="Boleta") Boleta
             .button-cnt.row.justify-content-center(style="padding-bottom: 35px; padding-top: 15px;")
                 button.btn.btn-primary#button-form-users(type='submit',style="background-color:#1f9bcf")
                   | Registrar
@@ -94,11 +112,11 @@ html(lang='en')
               th Tipo de Documento
               th Numero de Documento
               th Razon Social
-              th ID Usuario
               th Cuenta de Destino
               th Tipo de Comprobante
               th Fecha_Creacion
               th Fecha_Actualizacion
+              th Nombre y Apellido
               th Modificar
               th Eliminar
             each ingresos in listaingresos
@@ -111,16 +129,16 @@ html(lang='en')
                 td= ingresos.tipo_documento
                 td= ingresos.numero_documento
                 td= ingresos.razonSocial
-                td= ingresos.id
                 td= ingresos.cuenta_destino
                 td= ingresos.tipo_componente
                 td= ingresos.fecha_creacion
                 td= ingresos.fecha_actualizacion
+                td= ingresos.nombreApellido 
                 td
-                    a.btn.btn-info(href='/actualizar/'+ingresos.idingreso,style="background-color:#4dbf4b") Edit
+                    a.btn.btn-info(href='/actualizar/'+ingresos.idingreso,style="background-color:#4dbf4b") Editar
                     
                 td 
-                    a.ingresos-tabla.btn.btn-danger(href='/eliminar/'+ingresos.idingreso) Delete  
+                    a.ingresos-tabla.btn.btn-danger(href='/eliminar/'+ingresos.idingreso) Eliminar
         
 
   

@@ -29,12 +29,12 @@ controllers.gastosinsert = (req, res) => {
     titulo, descripcion, contact1, contact2, moneda, modalidad,
     contact3, titular, numeroCuenta,
   } = req.body;
-  const { ides } = req.session;
+  const { ides, nom, apelli } = req.session;
   const fecha = new Date();
   db.query(
-    'insert into gastos (titulo,descripcion,tipo,tipo_moneda,monto,modalidad,comprobante,titular,numero_cuenta,id,fecha_creacion,fecha_actualizacion) values(?,?,?,?,?,?,?,?,?,?,?,?)',
+    'insert into gastos (titulo,descripcion,tipo,tipo_moneda,monto,modalidad,comprobante,titular,numero_cuenta,id,nombreApellido,fecha_creacion,fecha_actualizacion) values(?,?,?,?,?,?,?,?,?,?,?,?,?)',
     [titulo, descripcion, contact1, contact2, moneda, modalidad,
-      contact3, titular, numeroCuenta, ides, fecha, fecha], () => {
+      contact3, titular, numeroCuenta, ides, `${nom}  ${apelli}`, fecha, fecha], () => {
       res.status(200).send({ message: 'Registro completo' });
     },
   );
@@ -50,7 +50,7 @@ controllers.gastoseliminar = (req, res) => {
 controllers.gastosactualizar = (req, res) => {
   const { session } = req;
   const actualizargastos = req.params.idgastos;
-  db.query('select titulo,descripcion,monto from gastos where idgastos=?', [actualizargastos], (err, result) => {
+  db.query('select titulo,descripcion,tipo,tipo_moneda,modalidad,comprobante,titular,numero_cuenta,monto from gastos where idgastos=?', [actualizargastos], (err, result) => {
     session.actualizargastos = actualizargastos;
     db.query('select NumeroCuenta,titular from cuenta;', (error, results) => {
       res.render('gastosedit', { datogastos: result, editlista: results });

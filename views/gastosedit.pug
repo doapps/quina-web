@@ -31,46 +31,82 @@ html(lang='es')
         .card-body
            form#gastos-edit
             .form-group
-              input.form-control(type='text', id="titulo", name='titulo',value=datogastos[0].titulo, placeholder='Titulo', autofocus='')
+              input.form-control(type='text', name='titulo',value=datogastos[0].titulo, placeholder='Titulo', autofocus='')
             .form-group
               input.form-control(type='text',id="descripcion", name='descripcion',value=datogastos[0].descripcion, placeholder='Descripción')
             .form-group
                 label(style="color: #9c9999") Tipo de Ingreso
             .form-group
-                input#contactChoice1(type='radio',class="ingreso", name='contact1',value="Normal")
-                label(for='contactChoice1', style="margin-right: 60px;") Normal
-                input#contactChoice2(type='radio', class="ingreso2",name='contact1', value="Destraccion")
-                label(for='contactChoice2') Detracción
+              if datogastos[0].tipo=="Normal"
+                  input#contactChoice1(type='radio',class="ingreso", name='contact1',value=datogastos[0].tipo  checked)
+                  label(for='contactChoice1', style="margin-right: 60px;") Normal
+                  input#contactChoice2(type='radio', class="ingreso2",name='contact1', value="Destraccion")
+                  label(for='contactChoice2') Detracción
+              else
+                  input#contactChoice1(type='radio',class="ingreso", name='contact1',value="Normal")
+                  label(for='contactChoice1', style="margin-right: 60px;") Normal
+                  input#contactChoice2(type='radio', class="ingreso2",name='contact1', value=datogastos[0].tipo checked)
+                  label(for='contactChoice2') Detracción
             .form-group
                  label(style="color: #9c9999") Tipo de Moneda
             .form-group
-                input#contactChoice3(type='radio',class="moneda" name='contact2',value="Dolares")
+             if datogastos[0].tipo_moneda=="Dolares"
+                input#contactChoice3(type='radio',class="moneda" name='contact2',value=datogastos[0].tipo_moneda checked)
                 label(for='contactChoice3', style="margin-right: 58px;") Dolares
                 input#contactChoice4(type='radio',class="moneda2" name='contact2',value="Soles")
                 label(for='contactChoice4') Soles
+             else
+                input#contactChoice3(type='radio',class="moneda" name='contact2',value="Dolares")
+                label(for='contactChoice3', style="margin-right: 58px;") Dolares
+                input#contactChoice4(type='radio',class="moneda2" name='contact2',value=datogastos[0].tipo_moneda checked)
+                label(for='contactChoice4') Soles
+
             .form-group
               input.form-control(type='number',id="moneda",step="0.01", name='moneda',value=datogastos[0].monto,placeholder='Monto')
             .form-group
                 label(style="color: #9c9999") Tipo de Modalidad
             .form-group
                select.selectpicker(name='modalidad')
-                option(value="factura") Efectivo
-                option(value="boleta") Tarjeta
+                if datogastos[0].modalidad=="Efectivo"
+                  option(value=datogastos[0].modalidad) #{datogastos[0].modalidad}
+                  option(value="Tarjeta") Tarjeta
+                else
+                  option(value=datogastos[0].modalidad) #{datogastos[0].modalidad}
+                  option(value="Efectivo") Efectivo
             .form-group
                label(style="color: #9c9999") Existencia de Comprobante
             .form-group
-               input#contactChoice5(type='radio',class="Comprobante" name='contact3',value="Si")
-               label(for='contactChoice3', style="margin-right: 58px;") Si
-               input#contactChoice6(type='radio',class="Comprobante2" name='contact3',value="No")
-               label(for='contactChoice4') No
+              if datogastos[0].comprobante=="Si"
+                input#contactChoice5(type='radio',class="Comprobante" name='contact3',value=datogastos[0].comprobante checked)
+                label(for='contactChoice3', style="margin-right: 58px;") Si
+                input#contactChoice6(type='radio',class="Comprobante2" name='contact3',value="No")
+                label(for='contactChoice4') No
+              else
+                input#contactChoice5(type='radio',class="Comprobante" name='contact3',value="Si")
+                label(for='contactChoice3', style="margin-right: 58px;") Si
+                input#contactChoice6(type='radio',class="Comprobante2" name='contact3',value=datogastos[0].comprobante checked)
+                label(for='contactChoice4') No
+            .form-group
+               label(style="color: #9c9999") Nombre del Titular
             .form-group
                select.selectpicker(name='titular')
                 each lista in editlista
-                  option(value=lista.titular) #{lista.titular}
+                  if datogastos[0].titular==lista.titular
+                     option(value=lista.titular) #{lista.titular}
+                     each lista in editlista
+                           if datogastos[0].titular!=lista.titular
+                              option(value=lista.titular) #{lista.titular}
+
+            .form-group
+               label(style="color: #9c9999") Numero de Cuenta               
             .form-group
               select.selectpicker(name='numeroCuenta')
                 each lista in editlista
-                  option(value=lista.NumeroCuenta) #{lista.NumeroCuenta}
+                      if lista.NumeroCuenta==datogastos[0].numero_cuenta
+                            option(value=lista.NumeroCuenta) #{lista.NumeroCuenta}
+                            each lista in editlista
+                               if lista.NumeroCuenta!=datogastos[0].numero_cuenta
+                                    option(value=lista.NumeroCuenta) #{lista.NumeroCuenta} 
             .button-cnt.row.justify-content-center(style="padding-bottom: 35px; padding-top: 15px;")
                 button.btn.btn-primary.ver(type='submit',style="background-color:#9c27b0")
                   | Editar

@@ -5,9 +5,10 @@ $(document).ready(() => {
     let apellido = $('#apellido').val();
     let contraseña = $('#contra').val();
     let correo = $('#email').val();
-
+    let rol = $('#roles').val();
+    
     event.preventDefault();
-    if (name === '' || apellido === '' || contraseña === '' || correo === '') {
+    if (name === '' || apellido === '' || contraseña === '' || correo === '' || rol === null) {
       alert('Complete todos los datos no debe haber campos vacios');
     } else {            
       if (/^([0-9])*$/.test(name) === false) {
@@ -16,6 +17,7 @@ $(document).ready(() => {
                         alert("El correo no es correcto");
                     } else {
                         submitCreateUser($('#create-form').serialize());
+                        location.reload();
                     }
                 } else {
                     alert('no se aceptan numeros en el campo apellido');
@@ -44,7 +46,6 @@ $(document).ready(() => {
       data: formData,
       success: (data) => {
         alert(data.message);
-        location.reload();
       },
       error: (jqXHR, textStatus, err) => {
         alert('text status ' + textStatus + ', err ' + err);

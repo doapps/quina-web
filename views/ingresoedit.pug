@@ -39,27 +39,45 @@ html(lang='es')
             .form-group
                 label(style="color:#9c9999") Tipo de Ingreso
             .form-group
-                input#contactChoice1(type='radio',class="ingreso", name='contact1',value="Normal")
-                label(for='contactChoice1', style="margin-right: 60px;") Normal
-                input#contactChoice2(type='radio', class="ingreso2",name='contact1', value="Destraccion")
-                label(for='contactChoice2') Detracción
+              if datoingreso[0].tipo == "Normal"
+                  input#contactChoice1(type='radio',class="ingreso", name='contact1',value=datoingreso[0].tipo checked)
+                  label(for='contactChoice1', style="margin-right: 60px;") Normal
+                  input#contactChoice2(type='radio', class="ingreso2",name='contact1', value="Destraccion")
+                  label(for='contactChoice2') Detracción
+              else
+                  input#contactChoice1(type='radio',class="ingreso", name='contact1',value="Normal")
+                  label(for='contactChoice1', style="margin-right: 60px;") Normal
+                  input#contactChoice2(type='radio', class="ingreso2",name='contact1',value=datoingreso[0].tipo checked)
+                  label(for='contactChoice2') Detracción
             .form-group
                  label(style="color: #9c9999") Tipo de Moneda
             .form-group
-                input#contactChoice3(type='radio',class="moneda" name='contact2',value="Dolares")
-                label(for='contactChoice3', style="margin-right: 58px;") Dolares
-                input#contactChoice4(type='radio',class="moneda2" name='contact2',value="Soles")
-                label(for='contactChoice4') Soles
+              if datoingreso[0].tipo_moneda == "Dolares"
+                  input#contactChoice3(type='radio',class="moneda" name='contact2',value=datoingreso[0].tipo_moneda checked)
+                  label(for='contactChoice3', style="margin-right: 58px;") Dolares
+                  input#contactChoice4(type='radio',class="moneda2" name='contact2',value="Soles")
+                  label(for='contactChoice4') Soles
+              else
+                  input#contactChoice3(type='radio',class="moneda" name='contact2',value="Dolares")
+                  label(for='contactChoice3', style="margin-right: 58px;") Dolares
+                  input#contactChoice4(type='radio',class="moneda2" name='contact2',value=datoingreso[0].tipo_moneda checked)
+                  label(for='contactChoice4') Soles
             .form-group
               p(style="margin-bottom: 2px;color: #9c9999;") Monto
               input.form-control(type='number',id="moneda",value=datoingreso[0].monto,step="0.01", name='monto', placeholder='Monto')
             .form-group
                 label(style="color: #2267aff2;color: #9c9999;") Tipo de Documento
             .form-group
-                input#contactChoice5(type='radio',class="documento", name='contact3',value="DNI")
-                label(for='contactChoice5', style="margin-right: 90px;") Dni
-                input#contactChoice6(type='radio',class="documento2", name='contact3',value="Ruc")
-                label(for='contactChoice6') Ruc
+              if datoingreso[0].tipo_documento == "DNI"
+                  input#contactChoice5(type='radio',class="documento", name='contact3',value=datoingreso[0].tipo_documento checked)
+                  label(for='contactChoice5', style="margin-right: 90px;") Dni
+                  input#contactChoice6(type='radio',class="documento2", name='contact3',value="RUC")
+                  label(for='contactChoice6') Ruc
+              else
+                  input#contactChoice5(type='radio',class="documento", name='contact3',value="DNI")
+                  label(for='contactChoice5', style="margin-right: 90px;") Dni
+                  input#contactChoice6(type='radio',class="documento2", name='contact3',value=datoingreso[0].tipo_documento checked)
+                  label(for='contactChoice6') Ruc
             .form-group
               p(style="margin-bottom: 2px;color: #9c9999;") Numero de  Documento
               input.form-control(type='number',id="numerodocumento",value=datoingreso[0].numero_documento, name='numerodocumento', placeholder='Numero de Documento')
@@ -70,12 +88,20 @@ html(lang='es')
                 p(style="margin-bottom: 2px;color: #9c9999;") Numero de Cuenta
                 select.selectpicker(name='cuenta')
                   each lista in editlista
-                    option(value=lista.NumeroCuenta) #{lista.NumeroCuenta}
+                      if lista.NumeroCuenta==datoingreso[0].cuenta_destino
+                            option(value=lista.NumeroCuenta) #{lista.NumeroCuenta}
+                            each lista in editlista
+                               if lista.NumeroCuenta!=datoingreso[0].cuenta_destino
+                                    option(value=lista.NumeroCuenta) #{lista.NumeroCuenta}       
             .form-group
               p(style="margin-bottom: 2px;color: #9c9999;") Numero de Comprobante
               select.selectpicker(name='comprobante')
-                option(value="factura") Factura
-                option(value="boleta") Boleta
+               if datoingreso[0].tipo_componente == "Factura"
+                  option(value=datoingreso[0].tipo_componente) #{datoingreso[0].tipo_componente}
+                  option(value="Boleta") Boleta
+               else
+                  option(value=datoingreso[0].tipo_componente) #{datoingreso[0].tipo_componente}
+                  option(value="Factura") Factura
             .button-cnt.row.justify-content-center(style="padding-bottom: 35px; padding-top: 15px;")
                 button.btn.btn-primary.ver(type='submit',style="background-color:#28a76c")
                   | Editar

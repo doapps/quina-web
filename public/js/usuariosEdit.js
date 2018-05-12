@@ -11,6 +11,7 @@ $(document).ready(() => {
                                 alert("El correo no es correcto");
                     } else {
                         actualizarUsuarios(($('#editarUsuarios').serialize()));
+                        location.reload();
                     }
             } else {
                alert('no se aceptan numeros en el campo apellido');

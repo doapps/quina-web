@@ -29,7 +29,7 @@ router.post('/actualizar', ingresosControllers.ingresosActualizar);
 //tabla gastos
 router.get('/tablagastos', gastosControllers.listargastos);
 router.post('/tablagastos', gastosControllers.gastosinsert);
-router.get('/eliminargastos/:idgastos',gastosControllers.gastoseliminar);
+router.get('/eliminargastos/:idgastos', gastosControllers.gastoseliminar);
 router.get('/actualizargastos/:idgastos', gastosControllers.gastosactualizar);
 router.post('/actualizargastos', gastosControllers.gastosUpdate);
 

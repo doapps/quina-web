@@ -30,7 +30,8 @@ user.validarUsuario = (req, res) => {
         session.roles = roles;
       }
     }
-    res.status(200).send({ message: mensaje, email });
+    const { roles } = req.session;
+    res.status(200).send({ message: mensaje, email, roles });
   });
 };
 

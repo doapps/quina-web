@@ -3,10 +3,18 @@ $(document).ready(() => {
         let tipoingreso=$('input[name=contact1]:checked').val();
         let tipomoneda=$('input[name=contact2]:checked').val();
         let comprobante=$('input[name=contact3]:checked').val();
+        let modalidadpago=$('#modalidadpago').val();
+        let titular=$('#titularr').val();
+        let cuentanumero=$('#Cuentanumero').val();
 
-        
+        event.preventDefault();
   if(($('.ingreso').is(':checked') || $('.ingreso2').is(':checked')) && ($('.moneda').is(':checked') || $('.moneda2').is(':checked')) && ($('.Comprobante').is(':checked') || $('.Comprobante2').is(':checked'))){
-    insertgastos($('#gastoslistar').serialize());
+      if(modalidadpago === null && titular === null && cuentanumero === null){
+        alert("Complete todos los datos no debe haber campos vacios");
+      }else{
+            insertgastos($('#gastoslistar').serialize());
+            location.reload();
+      }
   }else{
     alert("Complete todos los datos no debe haber campos vacios");
   }
@@ -30,7 +38,6 @@ $(document).ready(() => {
       data: formData,
       success: (data) => {
         alert(data.message);
-        location.reload();
       },
       error: (jqXHR, textStatus, err) => {
         alert('text status ' + textStatus + ', err ' + err);

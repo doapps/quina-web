@@ -22,20 +22,24 @@ controllers.listarcuenta = (req, res) => {
     });
   });
 };
+
 controllers.ingresarinsert = (req, res) => {
   const {
     titulo, descripcion, contact1, contact2, moneda, contact3,
     numerodocumento, razon, cuenta, comprobante,
   } = req.body;
 
-  const { ides } = req.session;
+  const { ides, nom, apelli } = req.session;
 
   const fecha = new Date();
   db.query(
-    'insert into ingresos (titulo,descripcion,tipo,tipo_moneda,monto,tipo_documento,numero_documento,razonSocial,id,cuenta_destino,tipo_componente,fecha_creacion,fecha_actualizacion) values(?,?,?,?,?,?,?,?,?,?,?,?,?)',
+    'insert into ingresos (titulo,descripcion,tipo,tipo_moneda,monto,tipo_documento,numero_documento,razonSocial,id,nombreApellido ,cuenta_destino,tipo_componente,fecha_creacion,fecha_actualizacion) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
     [titulo, descripcion, contact1,
       contact2, moneda, contact3,
-      numerodocumento, razon, ides, cuenta, comprobante, fecha, fecha], () => {
+      numerodocumento, razon, ides, `${nom}  ${apelli}`, cuenta, comprobante, fecha, fecha], (err) => {
+      if (err) {
+        console.log(`--> err: ${err}`);
+      }
       res.status(200).send({ message: 'Registro completo' });
     },
   );
@@ -48,10 +52,11 @@ controllers.eliminar = (req, res) => {
   });
 };
 
+
 controllers.ingresosEditActualizar = (req, res) => {
   const { session } = req;
   const actualizar = req.params.idingreso;
-  db.query('select titulo,descripcion,tipo,tipo_moneda,monto,numero_documento,razonSocial from ingresos where idingreso=?', [actualizar], (err, result) => {
+  db.query('select titulo,descripcion,tipo,tipo_moneda,monto,numero_documento,tipo_documento,razonSocial,cuenta_destino,tipo_componente from ingresos where idingreso=?', [actualizar], (err, result) => {
     session.actualizar = actualizar;
     db.query('select NumeroCuenta from cuenta;', (error, results) => {
       res.render('ingresoedit', { datoingreso: result, editlista: results });
@@ -66,13 +71,13 @@ controllers.ingresosActualizar = (req, res) => {
   } = req.body;
   const { actualizar } = req.session;
   const fecha = new Date();
-  console.log(actualizar);
+  console.log(contact3);
   db.query(
     'update ingresos set titulo=?,descripcion=?,tipo=?,tipo_moneda=?,monto=?,tipo_documento=?,numero_documento=?,razonSocial=?,cuenta_destino=?,tipo_componente=?,fecha_actualizacion=? where idingreso=?',
     [titulo, descripcion, contact1, contact2, monto, contact3,
       numerodocumento, razonSocial, cuenta, comprobante, fecha, actualizar], (error) => {
       if (error) {
-        res.json(error);
+        console.log(error);
       }
       res.status(200).send({ message: 'Actualizacion completa' });
     },
