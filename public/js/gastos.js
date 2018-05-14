@@ -9,7 +9,7 @@ $(document).ready(() => {
 
         event.preventDefault();
   if(($('.ingreso').is(':checked') || $('.ingreso2').is(':checked')) && ($('.moneda').is(':checked') || $('.moneda2').is(':checked')) && ($('.Comprobante').is(':checked') || $('.Comprobante2').is(':checked'))){
-      if(modalidadpago === null && titular === null && cuentanumero === null){
+      if(modalidadpago === null || titular === null || cuentanumero === null){
         alert("Complete todos los datos no debe haber campos vacios");
       }else{
             insertgastos($('#gastoslistar').serialize());

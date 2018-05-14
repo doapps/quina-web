@@ -4,7 +4,7 @@ $(document).ready(() => {
     let apellido = $('#apellido').val();
     let correo = $('#email').val();
 
-    event.preventDefault();
+       event.preventDefault();
       if (/^([0-9])*$/.test(name) === false) {
              if (/^([0-9])*$/.test(apellido) === false) {
                     if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(correo) === false) {

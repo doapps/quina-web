@@ -3,24 +3,28 @@ const db = require('../database/Connection');
 const controllers = {};
 
 controllers.listarcuenta = (req, res) => {
-  const { nom, apelli, roles } = req.session;
-  db.query('select NumeroCuenta from cuenta;', (err, result) => {
-    if (err) {
-      res.json(err);
-    }
-    db.query('select * from ingresos;', (error, results) => {
-      if (error) {
-        res.json(error);
+  const { nom, apelli, roles , email } = req.session;
+  if (email) {
+    db.query('select NumeroCuenta from cuenta;', (err, result) => {
+      if (err) {
+        res.json(err);
       }
-      res.render('tablaingresos', {
-        listacuenta: result,
-        listaingresos: results,
-        nom,
-        apelli,
-        roles,
+      db.query('select * from ingresos;', (error, results) => {
+        if (error) {
+          res.json(error);
+        }
+        res.render('tablaingresos', {
+          listacuenta: result,
+          listaingresos: results,
+          nom,
+          apelli,
+          roles,
+        });
       });
     });
-  });
+ } else { 
+  res.redirect('/login');
+ }
 };
 
 controllers.ingresarinsert = (req, res) => {

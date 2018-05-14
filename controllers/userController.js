@@ -8,6 +8,7 @@ controller.tablauser = (req, res) => {
     nom, apelli, roles, email,
   } = req.session;
   if (email) {
+    if(roles === 'Administrador'){
     db.query('select * from  usuario ', (err, result) => {
       if (err) {
         res.json(err);
@@ -20,6 +21,9 @@ controller.tablauser = (req, res) => {
       });
       console.log('tabla de usuarios...');
     });
+  }else{
+    res.redirect('/tablaingresos');
+  }
   } else {
     res.redirect('/login');
   }
@@ -55,11 +59,24 @@ controller.delete = (req, res) => {
   const valor = req.params.id;
   console.log(ides);
   console.log(valor);
-  db.query('delete from usuario where id= ?', [valor], () => {
-    res.redirect('/tablausuarios');
-  });
+  if (ides == valor){
+      db.query('delete from gastos where id=?', valor, () => {
+        db.query('delete from ingresos where id=?', valor, () => {
+          db.query('delete from usuario where id=?', valor, () => {
+            res.redirect('/logout');
+          });
+        });
+      });
+  }else{
+    db.query('delete from gastos where id=?', valor, () => {
+      db.query('delete from ingresos where id=?', valor, () => {
+        db.query('delete from usuario where id=?', valor, () => {
+          res.redirect('/tablausuarios');
+        });
+      });
+    });
+  }
 };
-
 
 controller.consultaedit = (req, res) => {
   const { session } = req;

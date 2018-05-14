@@ -43,6 +43,8 @@ user.logout = (req, res) => {
 
 user.validarSession = (req, res) => {
   const { session } = req;
+  const { roles } = req.session;
+  console.log(roles);
   if (session.email) {
     res.redirect('/tablausuarios');
   } else {

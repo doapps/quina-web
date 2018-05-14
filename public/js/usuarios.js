@@ -12,21 +12,22 @@ $(document).ready(() => {
       alert('Complete todos los datos no debe haber campos vacios');
     } else {            
       if (/^([0-9])*$/.test(name) === false) {
-           if (/^([0-9])*$/.test(apellido) === false) {
-               if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(correo) === false) {
+            if (/^([0-9])*$/.test(apellido) === false) {
+                    if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(correo) === false) {
                         alert("El correo no es correcto");
                     } else {
-                        submitCreateUser($('#create-form').serialize());
                         location.reload();
+                        submitCreateUser($('#create-form').serialize());
+                        
                     }
-                } else {
-                    alert('no se aceptan numeros en el campo apellido');
-                }
             } else {
-               alert('no se aceptan numeros en el campo nombre');
-        }
-    }
-  });
+                alert('no se aceptan numeros en el campo apellido');
+            }
+       } else {
+          alert('no se aceptan numeros en el campo nombre');
+      }
+  }
+ });
 
   $('.user-delete').click((event) => {
       let confi = confirm('Esta seguro que desea eliminar');

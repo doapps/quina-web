@@ -4,24 +4,28 @@ const controllers = {};
 
 
 controllers.listargastos = (req, res) => {
-  const { nom, apelli, roles } = req.session;
-  db.query('select NumeroCuenta,titular from cuenta;', (err, result) => {
-    if (err) {
-      res.json(err);
-    }
-    db.query('select * from gastos;', (error, results) => {
-      if (error) {
-        res.json(error);
+  const { nom, apelli, roles, email } = req.session;
+  if (email) {
+    db.query('select NumeroCuenta,titular from cuenta;', (err, result) => {
+      if (err) {
+        res.json(err);
       }
-      res.render('tablagastos', {
-        listacuenta: result,
-        listagastos: results,
-        nom,
-        apelli,
-        roles,
+      db.query('select * from gastos;', (error, results) => {
+        if (error) {
+          res.json(error);
+        }
+        res.render('tablagastos', {
+          listacuenta: result,
+          listagastos: results,
+          nom,
+          apelli,
+          roles,
+        });
       });
     });
-  });
+  }else {
+    res.redirect('/login');
+  }
 };
 
 controllers.gastosinsert = (req, res) => {

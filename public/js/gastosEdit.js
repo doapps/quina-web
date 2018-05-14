@@ -5,13 +5,13 @@ $(document).ready(() => {
         let comprobante=$('input[name=contact3]:checked').val();
 
         event.preventDefault();
-  if(($('.ingreso').is(':checked') || $('.ingreso2').is(':checked')) && ($('.moneda').is(':checked') || $('.moneda2').is(':checked')) && ($('.Comprobante').is(':checked') || $('.Comprobante2').is(':checked'))){
-    actualziargastos($('#gastos-edit').serialize());
-    location.reload();
-  }else{
-    alert("Complete todos los datos no debe haber campos vacios");
-  }
-    });
+    if(($('.ingreso').is(':checked') || $('.ingreso2').is(':checked')) || ($('.moneda').is(':checked') || $('.moneda2').is(':checked')) || ($('.Comprobante').is(':checked') || $('.Comprobante2').is(':checked'))){
+        actualziargastos($('#gastos-edit').serialize());
+        location.reload();
+    }else{
+      alert("Complete todos los datos no debe haber campos vacios");
+    }
+});
 
 
   

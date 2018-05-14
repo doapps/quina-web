@@ -26,7 +26,7 @@ router.get('/actualizar/:idingreso', ingresosControllers.ingresosEditActualizar)
 router.post('/actualizar', ingresosControllers.ingresosActualizar);
 
 
-//tabla gastos
+// tabla gastos
 router.get('/tablagastos', gastosControllers.listargastos);
 router.post('/tablagastos', gastosControllers.gastosinsert);
 router.get('/eliminargastos/:idgastos', gastosControllers.gastoseliminar);
