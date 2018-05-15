@@ -3,7 +3,9 @@ const db = require('../database/Connection');
 const controllers = {};
 
 controllers.listarcuenta = (req, res) => {
-  const { nom, apelli, roles , email } = req.session;
+  const {
+    nom, apelli, roles, email,
+  } = req.session;
   if (email) {
     db.query('select NumeroCuenta from cuenta;', (err, result) => {
       if (err) {
@@ -22,9 +24,9 @@ controllers.listarcuenta = (req, res) => {
         });
       });
     });
- } else { 
-  res.redirect('/login');
- }
+  } else {
+    res.redirect('/login');
+  }
 };
 
 controllers.ingresarinsert = (req, res) => {

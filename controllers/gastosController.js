@@ -4,7 +4,9 @@ const controllers = {};
 
 
 controllers.listargastos = (req, res) => {
-  const { nom, apelli, roles, email } = req.session;
+  const {
+    nom, apelli, roles, email,
+  } = req.session;
   if (email) {
     db.query('select NumeroCuenta,titular from cuenta;', (err, result) => {
       if (err) {
@@ -23,7 +25,7 @@ controllers.listargastos = (req, res) => {
         });
       });
     });
-  }else {
+  } else {
     res.redirect('/login');
   }
 };
