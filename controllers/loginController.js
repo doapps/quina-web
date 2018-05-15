@@ -8,7 +8,7 @@ user.validarUsuario = (req, res) => {
   const { email } = req.body;
   const passwords = req.body.password;
   const encryptPassword = crypto.createHash('md5').update(passwords).digest('hex');
-  db.query('select correo,contra,rol,nombre,apellido,id from usuario where correo=? and contra=?', [email, encryptPassword], (err, result) => {
+  db.query('select correo,contra,rol,nombre,apellido,id from usuarios where correo=? and contra=?', [email, encryptPassword], (err, result) => {
     let mensaje = '';
     if (result.length === 0) {
       mensaje = 'Datos Incorrectos';

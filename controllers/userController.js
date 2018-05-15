@@ -9,7 +9,7 @@ controller.tablauser = (req, res) => {
   } = req.session;
   if (email) {
     if (roles === 'Administrador') {
-      db.query('select * from  usuario ', (err, result) => {
+      db.query('select * from  usuarios ', (err, result) => {
         if (err) {
           res.json(err);
         }
@@ -37,7 +37,7 @@ controller.tablainsert = (req, res) => {
   const correos = req.body.correo;
   const roles = req.body.rol;
   const encrypt = crypto.createHash('md5').update(contra).digest('hex');
-  db.query('select * from usuario where correo = ?', correos, (err, result) => {
+  db.query('select * from usuarios where correo = ?', correos, (err, result) => {
     if (result.length > 0) {
       res.status(200).send({ message: 'El correo ya existe' });
     } else {
@@ -45,7 +45,7 @@ controller.tablainsert = (req, res) => {
       const fecha2 = new Date();
       const habilitar = 'Habilitado';
       db.query(
-        'insert into  usuario (nombre,apellido,correo,contra,rol,estado,fecha_creacion,fecha_actualizacion)values(?,?,?,?,?,?,?,?)',
+        'insert into  usuarios (nombre,apellido,correo,contra,rol,estado,fecha_creacion,fecha_actualizacion)values(?,?,?,?,?,?,?,?)',
         [nombre, apellido, correos, encrypt, roles, habilitar, fecha, fecha2], () => {
           res.status(200).send({ message: 'Registro completo' });
         },
@@ -62,7 +62,7 @@ controller.delete = (req, res) => {
   if (ides === valor) {
     db.query('delete from gastos where id=?', valor, () => {
       db.query('delete from ingresos where id=?', valor, () => {
-        db.query('delete from usuario where id=?', valor, () => {
+        db.query('delete from usuarios where id=?', valor, () => {
           res.redirect('/logout');
         });
       });
@@ -70,7 +70,7 @@ controller.delete = (req, res) => {
   } else {
     db.query('delete from gastos where id=?', valor, () => {
       db.query('delete from ingresos where id=?', valor, () => {
-        db.query('delete from usuario where id=?', valor, () => {
+        db.query('delete from usuarios where id=?', valor, () => {
           res.redirect('/tablausuarios');
         });
       });
@@ -82,7 +82,7 @@ controller.consultaedit = (req, res) => {
   const { session } = req;
   const actualizaUsuario = req.params.id;
   session.actualizaUsuario = actualizaUsuario;
-  db.query('select id,nombre,apellido,correo,rol,estado  from usuario where id=?', [actualizaUsuario], (err, result) => {
+  db.query('select id,nombre,apellido,correo,rol,estado  from usuarios where id=?', [actualizaUsuario], (err, result) => {
     res.render('usuarioedit', { dato: result });
   });
 };
@@ -95,7 +95,7 @@ controller.refrescar = (req, res) => {
   const rul = req.body.rol;
   const estatus = req.body.estado;
   const fecha = new Date();
-  db.query('update usuario set nombre=?,apellido=?,correo=?,rol=?,estado=?,fecha_actualizacion=? where id=?', [nom, apelli, email, rul, estatus, fecha, actualizaUsuario], () => {
+  db.query('update usuarios set nombre=?,apellido=?,correo=?,rol=?,estado=?,fecha_actualizacion=? where id=?', [nom, apelli, email, rul, estatus, fecha, actualizaUsuario], () => {
     res.status(200).send({ message: 'Acción con exito' });
   });
 };

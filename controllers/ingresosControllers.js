@@ -7,7 +7,7 @@ controllers.listarcuenta = (req, res) => {
     nom, apelli, roles, email,
   } = req.session;
   if (email) {
-    db.query('select NumeroCuenta from cuenta;', (err, result) => {
+    db.query('select NumeroCuenta from cuentas;', (err, result) => {
       if (err) {
         res.json(err);
       }
@@ -64,7 +64,7 @@ controllers.ingresosEditActualizar = (req, res) => {
   const actualizar = req.params.idingreso;
   db.query('select titulo,descripcion,tipo,tipo_moneda,monto,numero_documento,tipo_documento,razonSocial,cuenta_destino,tipo_componente from ingresos where idingreso=?', [actualizar], (err, result) => {
     session.actualizar = actualizar;
-    db.query('select NumeroCuenta from cuenta;', (error, results) => {
+    db.query('select NumeroCuenta from cuentas;', (error, results) => {
       res.render('ingresoedit', { datoingreso: result, editlista: results });
     });
   });

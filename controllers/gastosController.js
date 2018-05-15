@@ -8,7 +8,7 @@ controllers.listargastos = (req, res) => {
     nom, apelli, roles, email,
   } = req.session;
   if (email) {
-    db.query('select NumeroCuenta,titular from cuenta;', (err, result) => {
+    db.query('select NumeroCuenta,titular from cuentas;', (err, result) => {
       if (err) {
         res.json(err);
       }
@@ -58,7 +58,7 @@ controllers.gastosactualizar = (req, res) => {
   const actualizargastos = req.params.idgastos;
   db.query('select titulo,descripcion,tipo,tipo_moneda,modalidad,comprobante,titular,numero_cuenta,monto from gastos where idgastos=?', [actualizargastos], (err, result) => {
     session.actualizargastos = actualizargastos;
-    db.query('select NumeroCuenta,titular from cuenta;', (error, results) => {
+    db.query('select NumeroCuenta,titular from cuentas;', (error, results) => {
       res.render('gastosedit', { datogastos: result, editlista: results });
     });
   });
