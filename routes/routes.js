@@ -21,16 +21,16 @@ router.post('/actualizarUsuario', userController.refrescar);
 // tabla ingresos
 router.get('/tablaingresos', ingresosControllers.listarcuenta);
 router.post('/tablaingresos', ingresosControllers.ingresarinsert);
-router.get('/eliminar/:idingreso', ingresosControllers.eliminar);
-router.get('/actualizar/:idingreso', ingresosControllers.ingresosEditActualizar);
+router.get('/eliminar/:id', ingresosControllers.eliminar);
+router.get('/actualizar/:id', ingresosControllers.ingresosEditActualizar);
 router.post('/actualizar', ingresosControllers.ingresosActualizar);
 
 
 // tabla gastos
 router.get('/tablagastos', gastosControllers.listargastos);
 router.post('/tablagastos', gastosControllers.gastosinsert);
-router.get('/eliminargastos/:idgastos', gastosControllers.gastoseliminar);
-router.get('/actualizargastos/:idgastos', gastosControllers.gastosactualizar);
+router.get('/eliminargastos/:id', gastosControllers.gastoseliminar);
+router.get('/actualizargastos/:id', gastosControllers.gastosactualizar);
 router.post('/actualizargastos', gastosControllers.gastosUpdate);
 
 

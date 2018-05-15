@@ -7,7 +7,7 @@ controllers.listarcuenta = (req, res) => {
     nom, apelli, roles, email,
   } = req.session;
   if (email) {
-    db.query('select NumeroCuenta from cuentas;', (err, result) => {
+    db.query('select numero_cuenta from cuentas;', (err, result) => {
       if (err) {
         res.json(err);
       }
@@ -39,7 +39,7 @@ controllers.ingresarinsert = (req, res) => {
 
   const fecha = new Date();
   db.query(
-    'insert into ingresos (titulo,descripcion,tipo,tipo_moneda,monto,tipo_documento,numero_documento,razonSocial,id,nombreApellido ,cuenta_destino,tipo_componente,fecha_creacion,fecha_actualizacion) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+    'insert into ingresos (titulo,descripcion,tipo,tipo_moneda,monto,tipo_documento,numero_documento,razonsocial,autor_id,autor,cuenta_destino,tipo_componente,fecha_creacion,fecha_actualizacion) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
     [titulo, descripcion, contact1,
       contact2, moneda, contact3,
       numerodocumento, razon, ides, `${nom}  ${apelli}`, cuenta, comprobante, fecha, fecha], (err) => {
@@ -52,8 +52,8 @@ controllers.ingresarinsert = (req, res) => {
 };
 
 controllers.eliminar = (req, res) => {
-  const valor = req.params.idingreso;
-  db.query('delete from ingresos where idingreso= ?', [valor], () => {
+  const valor = req.params.id;
+  db.query('delete from ingresos where id= ?', [valor], () => {
     res.redirect('/tablaingresos');
   });
 };
@@ -61,10 +61,10 @@ controllers.eliminar = (req, res) => {
 
 controllers.ingresosEditActualizar = (req, res) => {
   const { session } = req;
-  const actualizar = req.params.idingreso;
-  db.query('select titulo,descripcion,tipo,tipo_moneda,monto,numero_documento,tipo_documento,razonSocial,cuenta_destino,tipo_componente from ingresos where idingreso=?', [actualizar], (err, result) => {
+  const actualizar = req.params.id;
+  db.query('select titulo,descripcion,tipo,tipo_moneda,monto,numero_documento,tipo_documento,razonsocial,cuenta_destino,tipo_componente from ingresos where id=?', [actualizar], (err, result) => {
     session.actualizar = actualizar;
-    db.query('select NumeroCuenta from cuentas;', (error, results) => {
+    db.query('select numero_cuenta from cuentas;', (error, results) => {
       res.render('ingresoedit', { datoingreso: result, editlista: results });
     });
   });
@@ -79,7 +79,7 @@ controllers.ingresosActualizar = (req, res) => {
   const fecha = new Date();
   console.log(contact3);
   db.query(
-    'update ingresos set titulo=?,descripcion=?,tipo=?,tipo_moneda=?,monto=?,tipo_documento=?,numero_documento=?,razonSocial=?,cuenta_destino=?,tipo_componente=?,fecha_actualizacion=? where idingreso=?',
+    'update ingresos set titulo=?,descripcion=?,tipo=?,tipo_moneda=?,monto=?,tipo_documento=?,numero_documento=?,razonsocial=?,cuenta_destino=?,tipo_componente=?,fecha_actualizacion=? where id=?',
     [titulo, descripcion, contact1, contact2, monto, contact3,
       numerodocumento, razonSocial, cuenta, comprobante, fecha, actualizar], (error) => {
       if (error) {

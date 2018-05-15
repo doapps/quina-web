@@ -83,16 +83,16 @@ html(lang='es')
               input.form-control(type='number',id="numerodocumento",value=datoingreso[0].numero_documento, name='numerodocumento', placeholder='Numero de Documento')
             .form-group
               p(style="margin-bottom: 2px;color: #9c9999;") Razon Social
-              input.form-control(type='text',id="razon",value=datoingreso[0].razonSocial, name='razonSocial', placeholder='Razon Social')
+              input.form-control(type='text',id="razon",value=datoingreso[0].razonsocial, name='razonSocial', placeholder='Razon Social')
             .form-group
                 p(style="margin-bottom: 2px;color: #9c9999;") Numero de Cuenta
                 select.selectpicker(name='cuenta')
                   each lista in editlista
-                      if lista.NumeroCuenta==datoingreso[0].cuenta_destino
-                            option(value=lista.NumeroCuenta) #{lista.NumeroCuenta}
+                      if lista.numero_cuenta==datoingreso[0].cuenta_destino
+                            option(value=lista.numero_cuenta) #{lista.numero_cuenta}
                             each lista in editlista
-                               if lista.NumeroCuenta!=datoingreso[0].cuenta_destino
-                                    option(value=lista.NumeroCuenta) #{lista.NumeroCuenta}       
+                               if lista.numero_cuenta!=datoingreso[0].cuenta_destino
+                                    option(value=lista.numero_cuenta) #{lista.numero_cuenta}       
             .form-group
               p(style="margin-bottom: 2px;color: #9c9999;") Numero de Comprobante
               select.selectpicker(name='comprobante')

@@ -88,7 +88,7 @@ html(lang='en')
                 select.selectpicker(name='cuenta',id="listacuenta")
                   option(value="" selected disabled)  Seleccione Cuenta
                   each lista in listacuenta
-                    option(value=lista.NumeroCuenta) #{lista.NumeroCuenta}
+                    option(value=lista.numero_cuenta) #{lista.numero_cuenta}
             .form-group
                 label(style="color: #9c9999") Tipo de Comprobante
             .form-group
@@ -128,17 +128,17 @@ html(lang='en')
                 td= ingresos.monto
                 td= ingresos.tipo_documento
                 td= ingresos.numero_documento
-                td= ingresos.razonSocial
+                td= ingresos.razonsocial
                 td= ingresos.cuenta_destino
                 td= ingresos.tipo_componente
                 td= ingresos.fecha_creacion
                 td= ingresos.fecha_actualizacion
-                td= ingresos.nombreApellido 
+                td= ingresos.autor
                 td
-                    a.btn.btn-info(href='/actualizar/'+ingresos.idingreso,style="background-color:#4dbf4b") Editar
+                    a.btn.btn-info(href='/actualizar/'+ingresos.id,style="background-color:#4dbf4b") Editar
                     
                 td 
-                    a.ingresos-tabla.btn.btn-danger(href='/eliminar/'+ingresos.idingreso) Eliminar
+                    a.ingresos-tabla.btn.btn-danger(href='/eliminar/'+ingresos.id) Eliminar
         
 
   

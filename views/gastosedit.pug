@@ -102,11 +102,11 @@ html(lang='es')
             .form-group
               select.selectpicker(name='numeroCuenta')
                 each lista in editlista
-                      if lista.NumeroCuenta==datogastos[0].numero_cuenta
-                            option(value=lista.NumeroCuenta) #{lista.NumeroCuenta}
+                      if lista.numero_cuenta==datogastos[0].numero_cuenta
+                            option(value=lista.numero_cuenta) #{lista.numero_cuenta}
                             each lista in editlista
-                               if lista.NumeroCuenta!=datogastos[0].numero_cuenta
-                                    option(value=lista.NumeroCuenta) #{lista.NumeroCuenta} 
+                               if lista.numero_cuenta!=datogastos[0].numero_cuenta
+                                    option(value=lista.numero_cuenta) #{lista.numero_cuenta} 
             .button-cnt.row.justify-content-center(style="padding-bottom: 35px; padding-top: 15px;")
                 button.btn.btn-primary.ver(type='submit',style="background-color:#9c27b0")
                   | Editar

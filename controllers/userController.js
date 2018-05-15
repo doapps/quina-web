@@ -60,16 +60,16 @@ controller.delete = (req, res) => {
   console.log(ides);
   console.log(valor);
   if (ides === valor) {
-    db.query('delete from gastos where id=?', valor, () => {
-      db.query('delete from ingresos where id=?', valor, () => {
+    db.query('delete from gastos where autor_id=?', valor, () => {
+      db.query('delete from ingresos where autor_id=?', valor, () => {
         db.query('delete from usuarios where id=?', valor, () => {
           res.redirect('/logout');
         });
       });
     });
   } else {
-    db.query('delete from gastos where id=?', valor, () => {
-      db.query('delete from ingresos where id=?', valor, () => {
+    db.query('delete from gastos where autor_id=?', valor, () => {
+      db.query('delete from ingresos where autor_id=?', valor, () => {
         db.query('delete from usuarios where id=?', valor, () => {
           res.redirect('/tablausuarios');
         });
