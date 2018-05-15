@@ -1,5 +1,4 @@
 $(document).ready(() => {
-// AJAX Events
   $('#create-form').on('submit', (event) => {
     let name = $('#nombre').val();
     let apellido = $('#apellido').val();
@@ -10,24 +9,23 @@ $(document).ready(() => {
     event.preventDefault();
     if (name === '' || apellido === '' || contraseña === '' || correo === '' || rol === null) {
       alert('Complete todos los datos no debe haber campos vacios');
-    } else {            
-      if (/^([0-9])*$/.test(name) === false) {
-            if (/^([0-9])*$/.test(apellido) === false) {
-                    if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(correo) === false) {
+    }else{            
+      if(/^([0-9])*$/.test(name) === false) {
+              if(/^([0-9])*$/.test(apellido) === false) {
+                  if(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(correo) === false) {
                         alert("El correo no es correcto");
-                    } else {
-                        location.reload();
-                        submitCreateUser($('#create-form').serialize());
-                        
-                    }
-            } else {
-                alert('no se aceptan numeros en el campo apellido');
-            }
-       } else {
-          alert('no se aceptan numeros en el campo nombre');
-      }
+                  }else{ 
+                    submitCreateUser($('#create-form').serialize());
+                    window.location.href ="/tablausuarios";
+                  }
+              }else{
+                  alert('no se aceptan numeros en el campo apellido');
+              }
+      }else{
+        alert('no se aceptan numeros en el campo nombre');
+     }
   }
- });
+});
 
   $('.user-delete').click((event) => {
       let confi = confirm('Esta seguro que desea eliminar');
