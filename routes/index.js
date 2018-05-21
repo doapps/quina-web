@@ -11,12 +11,13 @@ router.get('/login', loginController.validarSession);
 router.post('/login', loginController.validarUsuario);
 router.get('/logout', loginController.logout);
 
-router.get('/usuarioedit', (req, res) => { res.render('usuarioedit'); });
-router.get('/tablausuarios', userController.tablauser);
-router.post('/tablausuarios', userController.tablainsert);
-router.get('/delete/:id', userController.delete);
-router.get('/update/:id', userController.consultaedit);
-router.post('/actualizarUsuario', userController.refrescar);
+// modulo usuarios
+router.get('/usuarios', userController.listar);
+router.get('/usuarios/crear', userController.crear);
+router.get('/usuarios/editar/:id', userController.editar);
+router.post('/usuarios/crear', userController.crearPost);
+router.post('/usuarios/editar', userController.editarPost);
+router.get('/usuarios/eliminar/:id', userController.eliminar);
 
 // tabla ingresos
 router.get('/tablaingresos', ingresosControllers.listarcuenta);

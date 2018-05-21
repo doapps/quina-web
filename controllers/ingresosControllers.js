@@ -1,4 +1,4 @@
-const db = require('../database/Connection');
+const db = require('../database/connection');
 
 const controllers = {};
 

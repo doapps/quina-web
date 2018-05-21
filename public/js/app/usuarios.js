@@ -16,7 +16,7 @@ $(document).ready(() => {
                         alert("El correo no es correcto");
                   }else{ 
                     submitCreateUser($('#create-form').serialize());
-                    window.location.href ="/tablausuarios";
+                    window.location.href ="/usuarios";
                   }
               }else{
                   alert('no se aceptan numeros en el campo apellido');
@@ -41,7 +41,7 @@ $(document).ready(() => {
   function submitCreateUser(formData) {
     $.ajax({
       type: 'POST',
-      url: '/tablausuarios',
+      url: '/usuarios/crear',
       data: formData,
       success: (data) => {
         alert(data.message);

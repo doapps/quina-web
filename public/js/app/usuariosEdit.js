@@ -26,11 +26,11 @@ $(document).ready(() => {
   function actualizarUsuarios(formData) {
     $.ajax({
       type: 'POST',
-      url: '/actualizarUsuario',
+      url: '/usuarios/editar',
       data: formData,
       success: (data) => {
         alert(data.message);
-        window.location.href ="/tablausuarios";
+        window.location.href ="/usuarios";
       },
       error: (jqXHR, textStatus, err) => {
         alert('text status ' + textStatus + ', err ' + err);
