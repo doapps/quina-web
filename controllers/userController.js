@@ -1,9 +1,9 @@
-const db = require('../database/Connection');
+const db = require('../database/connection');
 const crypto = require('crypto');
 
 const controller = {};
 
-controller.tablauser = (req, res) => {
+controller.listar = (req, res) => {
   const {
     nom, apelli, roles, email,
   } = req.session;
@@ -13,7 +13,7 @@ controller.tablauser = (req, res) => {
         if (err) {
           res.json(err);
         }
-        res.render('tablausuarios', {
+        res.render('usuarios/listar', {
           tablau: result,
           nom,
           apelli,
@@ -29,8 +29,22 @@ controller.tablauser = (req, res) => {
   }
 };
 
+controller.crear = (req, res) => {
+  const {
+    roles, email,
+  } = req.session;
+  if (email) {
+    if (roles === 'Administrador') {
+      res.render('usuarios/crear', {});
+    } else {
+      res.redirect('/tablaingresos');
+    }
+  } else {
+    res.redirect('/login');
+  }
+};
 
-controller.tablainsert = (req, res) => {
+controller.crearPost = (req, res) => {
   const nombre = req.body.name;
   const apellido = req.body.lastname;
   const contra = req.body.contraseña;
@@ -54,7 +68,7 @@ controller.tablainsert = (req, res) => {
   });
 };
 
-controller.delete = (req, res) => {
+controller.eliminar = (req, res) => {
   const { ides } = req.session;
   const valor = req.params.id;
   console.log(ides);
@@ -71,23 +85,23 @@ controller.delete = (req, res) => {
     db.query('delete from gastos where autor_id=?', valor, () => {
       db.query('delete from ingresos where autor_id=?', valor, () => {
         db.query('delete from usuarios where id=?', valor, () => {
-          res.redirect('/tablausuarios');
+          res.redirect('/usuarios');
         });
       });
     });
   }
 };
 
-controller.consultaedit = (req, res) => {
+controller.editar = (req, res) => {
   const { session } = req;
   const actualizaUsuario = req.params.id;
   session.actualizaUsuario = actualizaUsuario;
   db.query('select id,nombre,apellido,correo,rol,estado  from usuarios where id=?', [actualizaUsuario], (err, result) => {
-    res.render('usuarioedit', { dato: result });
+    res.render('usuarios/editar', { dato: result });
   });
 };
 
-controller.refrescar = (req, res) => {
+controller.editarPost = (req, res) => {
   const { actualizaUsuario } = req.session;
   const nom = req.body.nombre;
   const apelli = req.body.apellido;

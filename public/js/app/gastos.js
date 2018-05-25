@@ -32,16 +32,27 @@ $(document).ready(() => {
 
     $('#moneda').on('keyup keypress', (event)=>{
 
-      // let moneda = $('#moneda').val();
-      let keycode = event.keyCode;
-      
-      if((keycode > 47 && keycode < 58) || keycode== 8 || keycode == 13 || keycode== 6 || keycode == 46 ){
-        
-      }else{
-        event.preventDefault();
+        let moneda = $('#moneda').val();
+        let keycode = event.keyCode;
+
+      var contar=0;
+      if(moneda.charAt(0) == '.'){
+        $('#moneda').val('');
       }
-    
-      
+      if((keycode > 47 && keycode < 58) || keycode== 8 || keycode == 13 || keycode== 6 || keycode == 46 ){
+          for (let index = 0; index < moneda.length; index++) {
+                if(moneda.charAt(index) == '.'){
+                  contar++;
+                  if(contar == 2){
+                    let dividir = moneda.substring(0,moneda.length-1);
+                    $('#moneda').val(dividir);
+                    event.preventDefault();
+                  }
+                }
+          }
+      }else{
+         event.preventDefault();
+      }
     });
 
 

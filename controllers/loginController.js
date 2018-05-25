@@ -1,4 +1,4 @@
-const db = require('../database/Connection');
+const db = require('../database/connection');
 const crypto = require('crypto');
 
 const user = {};
@@ -41,12 +41,11 @@ user.logout = (req, res) => {
 
 user.validarSession = (req, res) => {
   const { session } = req;
-  const { roles } = req.session;
-  console.log(roles);
   if (session.email) {
-    res.redirect('/tablausuarios');
+    res.redirect('/usuarios');
   } else {
     res.render('login');
   }
 };
+
 module.exports = user;

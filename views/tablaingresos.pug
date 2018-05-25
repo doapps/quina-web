@@ -4,15 +4,10 @@ html(lang='en')
     title Registro de Ingresos
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
-    link(rel='stylesheet', href='https://bootswatch.com/4/lux/bootstrap.min.css')
-    script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
-    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js')
-    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css', rel='stylesheet')
-    link(href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css', rel='stylesheet')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js')
-    //- link(href='../css/signin.css', rel='stylesheet')
-    script(src='../js/ingresos.js')
+    link(href='../css/bootstrap.min.css', rel='stylesheet')
+    script(src='../js/jquery.min.js')
+    script(src='../js/bootstrap.min.js')
+    script(src='../js/app/ingresos.js')
     style(type='text/css').
       .body-tables *{
         font-size: 14px;
@@ -33,7 +28,7 @@ html(lang='en')
         p(style="margin-right: 20px; color: #f5f5f5;")=nom
         p(style="color: #f5f5f5;")=apelli
       else 
-        a.btn.btn-info(href="/tablausuarios",style="background-color:#b33434; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Usuarios
+        a.btn.btn-info(href="/usuarios",style="background-color:#b33434; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Usuarios
         a.btn.btn-info(href="/tablaingresos",style="background-color:#d84945; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Ingresos
         a.btn.btn-info(href="/tablagastos",style="background-color:#b33434; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Gastos
         a.btn.btn-info(href="/logout",style="background-color:#e45d1c; margin-right: 20px;border-color: rgba(255,255,255,.15);") Salir
@@ -66,7 +61,7 @@ html(lang='en')
                 input#contactChoice4(type='radio',class="moneda2" name='contact2',value="Soles")
                 label(for='contactChoice4') Soles
             .form-group
-              input.form-control(type='number',id="moneda",step="0.01", name='moneda', placeholder='Monto')
+              input.form-control(type='text',id="moneda", name='moneda', placeholder='Monto')
             .form-group
                 label(style="color: #9c9999") Tipo de Documento
             .form-group
@@ -77,11 +72,11 @@ html(lang='en')
             .form-group
                 label(style="color: #9c9999") Numero de Documento
             .form-group
-              input.form-control(type='number',id="numerodocumento", name='numerodocumento', placeholder='Numero de Documento')
+              input.form-control(type='text',id="numerodocumento", name='numerodocumento', placeholder='Numero de Documento')
             .form-group
                 label(style="color: #9c9999") Razon Social
             .form-group
-              input.form-control(type='text',id="razon", name='razon', placeholder='Razon Social')
+              input.form-control(type='text',id="razon", name='razon', placeholder='Nombre o Razon Social')
             .form-group
                 label(style="color: #9c9999") Numero de Cuenta
             .form-group

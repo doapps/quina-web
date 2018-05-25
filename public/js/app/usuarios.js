@@ -14,10 +14,9 @@ $(document).ready(() => {
               if(/^([0-9])*$/.test(apellido) === false) {
                   if(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(correo) === false) {
                         alert("El correo no es correcto");
-                  }else{  
-                    window.location.href ="/tablausuarios";
+                  }else{ 
                     submitCreateUser($('#create-form').serialize());
-                   
+                    window.location.href ="/usuarios";
                   }
               }else{
                   alert('no se aceptan numeros en el campo apellido');
@@ -42,7 +41,7 @@ $(document).ready(() => {
   function submitCreateUser(formData) {
     $.ajax({
       type: 'POST',
-      url: '/tablausuarios',
+      url: '/usuarios/crear',
       data: formData,
       success: (data) => {
         alert(data.message);

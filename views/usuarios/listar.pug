@@ -39,26 +39,7 @@ html(lang='en')
     .row.justify-content-center
       .col-md-6  
         a.navbar-brand(href='#', style="height: auto; margin-bottom: 15px;font-size: 24px;font-weight: bold;") Registro de Usuarios
-    .row.justify-content-center
-      .col-md-6(style="margin-bottom: 30px;")
-        .card-body
-          form#create-form
-            .form-group
-              input.form-control(type='text', id="nombre", name='name', placeholder='Nombre', autofocus='')
-            .form-group
-              input.form-control(type='text',id="apellido", name='lastname', placeholder='Apellido')
-            .form-group
-              input.form-control(type='email',id="email", name='correo', placeholder='Email')
-            .form-group
-              input.form-control(type='password',id="contra" ,name='contraseña', placeholder='Contraseña')
-            .form-group
-              select.selectpicker(name='rol',id="roles")
-                option(value="" selected disabled) Seleccione el Rol
-                option(value="Administrador") Administrador
-                option(value="Operador") Operador
-            .button-cnt.row.justify-content-center(style="padding-bottom: 35px; padding-top: 15px;")
-                button.btn.btn-primary#button-form-users(type='submit',style="background-color:#1f9bcf")
-                  | Registrar
+        a.btn.btn-info(href='/usuarios/crear', stle="background-color:#4dbf4b") Nuevo
     .row(style="margin-bottom: 65px;")
       .col-md-12( style="max-width: 80%; margin: 0 auto; overflow-x: scroll") 
         table.table.table-bordered.table-hover
@@ -84,10 +65,10 @@ html(lang='en')
                 td= usuario.fecha_creacion
                 td= usuario.fecha_actualizacion
                 td
-                    a.btn.btn-info(href='/update/'+usuario.id,style="background-color:#4dbf4b") Editar
+                    a.btn.btn-info(href='/usuarios/editar/'+usuario.id,style="background-color:#4dbf4b") Editar
                     
                 td 
-                    a.user-delete.btn.btn-danger(href='/delete/'+usuario.id) Eliminar
+                    a.user-delete.btn.btn-danger(href='/usuarios/eliminar/'+usuario.id) Eliminar
          
   
       
