@@ -30,6 +30,20 @@ $(document).ready(() => {
         }
       });
 
+    $('#moneda').on('keyup keypress', (event)=>{
+
+      // let moneda = $('#moneda').val();
+      let keycode = event.keyCode;
+      
+      if((keycode > 47 && keycode < 58) || keycode== 8 || keycode == 13 || keycode== 6 || keycode == 46 ){
+        
+      }else{
+        event.preventDefault();
+      }
+    
+      
+    });
+
 
   function insertgastos(formData){
     $.ajax({

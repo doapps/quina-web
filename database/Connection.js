@@ -13,7 +13,7 @@ function connect() {
     });
     conn.connect((err) => {
       if (err) {
-        console.log(`error al conectar: ${err}`);
+        console.log(`-> error_db_connect: ${err}`);
       }
     });
   }

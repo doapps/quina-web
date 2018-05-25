@@ -6,7 +6,6 @@ const routes = require('./routes/routes');
 
 const app = express();
 
-
 app.use(session({
   secret: 'doapps',
   resave: true,
