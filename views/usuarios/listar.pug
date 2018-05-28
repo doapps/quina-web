@@ -22,7 +22,7 @@ html(lang='en')
   body.body-tables
     nav.navbar.navbar-expand-lg.navbar-dark(style="background-color:#28a745; margin-bottom: 30px;")
      if roles === "Operador"
-        a.btn.btn-info(href="/tablaingresos",style="background-color:#3c763d; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Ingresos
+        a.btn.btn-info(href="/ingresos",style="background-color:#3c763d; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Ingresos
         a.btn.btn-info(href="/tablagastos",style="background-color:#3c763d; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Gastos
         a.btn.btn-info(href="/logout",style="background-color:#e4c21c; margin-right: 20px;border-color: rgba(255,255,255,.15);") Salir
         p(style="margin-right: 20px; color: #f5f5f5;")=roles
@@ -30,7 +30,7 @@ html(lang='en')
         p(style="color: #f5f5f5;")=apelli
      else
         a.btn.btn-info(href="/usuarios",style="background-color:#4dbf4b ; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Usuarios 
-        a.btn.btn-info(href="/tablaingresos",style="background-color:#3c763d; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Ingresos
+        a.btn.btn-info(href="/ingresos",style="background-color:#3c763d; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Ingresos
         a.btn.btn-info(href="/tablagastos",style="background-color:#3c763d; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Gastos
         a.btn.btn-info(href="/logout",style="background-color:#e4c21c; margin-right: 20px;border-color: rgba(255,255,255,.15);") Salir
         p(style="margin-right: 20px; color: #f5f5f5;")=roles

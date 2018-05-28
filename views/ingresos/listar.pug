@@ -1,0 +1,81 @@
+doctype html
+html(lang='en')
+  head
+    title Registro de Ingresos
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(href='../css/bootstrap.min.css', rel='stylesheet')
+    script(src='../js/jquery.min.js')
+    script(src='../js/bootstrap.min.js')
+    style(type='text/css').
+      .body-tables *{
+        font-size: 14px;
+      }
+      .body-tables{
+        overflow-x: hidden;
+      }
+      .form-group .btn-group{
+        width: 100% !important;
+      }
+  body.body-tables
+    nav.navbar.navbar-expand-lg.navbar-dark(style="background-color:#a92e2a; margin-bottom: 30px;")
+      if roles === "Operador"
+        a.btn.btn-info(href="/ingresos",style="background-color:#d84945; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Ingresos
+        a.btn.btn-info(href="/tablagastos",style="background-color:#b33434; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Gastos
+        a.btn.btn-info(href="/logout",style="background-color:#e45d1c; margin-right: 20px;border-color: rgba(255,255,255,.15);") Salir
+        p(style="margin-right: 20px; color: #f5f5f5;")=roles
+        p(style="margin-right: 20px; color: #f5f5f5;")=nom
+        p(style="color: #f5f5f5;")=apelli
+      else 
+        a.btn.btn-info(href="/usuarios",style="background-color:#b33434; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Usuarios
+        a.btn.btn-info(href="/ingresos",style="background-color:#d84945; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Ingresos
+        a.btn.btn-info(href="/tablagastos",style="background-color:#b33434; margin-right: 20px;border-color: rgba(255,255,255,.15);") Registros de Gastos
+        a.btn.btn-info(href="/logout",style="background-color:#e45d1c; margin-right: 20px;border-color: rgba(255,255,255,.15);") Salir
+        p(style="margin-right: 20px; color: #f5f5f5;")=roles
+        p(style="margin-right: 20px; color: #f5f5f5;")=nom
+        p(style="color: #f5f5f5;")=apelli
+    .row.justify-content-center
+      .col-md-6  
+        a.navbar-brand(href='#', style="height: auto; margin-bottom: 15px;font-size: 24px;font-weight: bold;color: #ec6a0d") Registro de Ingresos
+        a.btn.btn-info(href='/ingresos/crear', stle="background-color:#4dbf4b") Nuevo
+    .row(style="margin-bottom: 65px;")
+      .col-md-12( style="max-width: 80%; margin: 0 auto; overflow-x: scroll") 
+        table.table.table-bordered.table-hover
+          thead
+            tr
+              th Titulo
+              th Descripcion
+              th Tipo
+              th Tipo de Moneda
+              th Monto
+              th Tipo de Documento
+              th Numero de Documento
+              th Razon Social
+              th Cuenta de Destino
+              th Tipo de Comprobante
+              th Fecha Creacion
+              th Fecha Actualizacion
+              th Autor
+              th Modificar
+              th Eliminar
+            each ingresos in listaingresos
+              tr
+                td= ingresos.titulo
+                td= ingresos.descripcion
+                td= ingresos.tipo
+                td= ingresos.tipo_moneda
+                td= ingresos.monto
+                td= ingresos.tipo_documento
+                td= ingresos.numero_documento
+                td= ingresos.razonsocial
+                td= ingresos.cuenta_destino
+                td= ingresos.tipo_componente
+                td= ingresos.fecha_creacion
+                td= ingresos.fecha_actualizacion
+                td= ingresos.autor
+                td
+                    a.btn.btn-info(href='/ingresos/editar/'+ingresos.id,style="background-color:#4dbf4b") Editar
+                    
+                td 
+                    a.ingresos-tabla.btn.btn-danger(href='/ingresos/eliminar/'+ingresos.id) Eliminar
+        

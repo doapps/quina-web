@@ -16,16 +16,16 @@ $(document).ready(() => {
             }else{
                     if(tipodocumento === 'DNI'){
                             if(numero.length === 8){
-                                location.reload();
                                 updateingresos($('#ingreso-edit').serialize());
+                                window.location.href ="/ingresos";
                                 
                             }else{
                                 alert("El Numero de DNI debe tener 8 digitos");
                             }
                     }else if(tipodocumento === 'RUC'){
                             if(numero.length === 11){  
-                                location.reload();
                                 updateingresos($('#ingreso-edit').serialize());
+                                window.location.href ="/ingresos";
                             
                             }else{
                                 alert("El Numero de ruc debe tener 11 digitos");
@@ -39,11 +39,11 @@ $(document).ready(() => {
     function updateingresos(formData){
         $.ajax({
             type:'POST',
-            url:'/actualizar',
+            url:'/ingresos/editar',
             data: formData,
             success: (data) => {
               alert(data.message);
-              window.location.href ="/tablaingresos";
+              window.location.href ="/ingresos";
             },
             error: (jqXHR, textStatus, err) => {
               alert('text status ' + textStatus + ', err ' + err);

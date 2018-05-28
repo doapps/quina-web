@@ -1,0 +1,104 @@
+doctype html
+html(lang='es')
+  head
+    title Edit
+    meta(charset='utf-8')
+    link(href='../../css/bootstrap.min.css', rel='stylesheet')
+    script(src='../../js/jquery.min.js')
+    script(src='../../js/bootstrap.min.js')
+    script(src='../../js/app/ingresosEdit.js')
+    style(type='text/css').
+      .body-tables *{
+        font-size: 15px;
+      }
+      .body-tables{
+        overflow-x: hidden;
+      }
+      .form-group .btn-group{
+        width: 100% !important;
+      }
+  body.body-tables
+    nav.navbar.navbar-expand-lg.navbar-dark(style="background-color:#28a778; margin-bottom: 30px;")
+    .row.justify-content-center
+      .col-md-6  
+        a.navbar-brand(href='#', style="height: auto; margin-bottom: 15px; color:#4bbf73;font-size: 25px;font-weight: bold;") Editar Ingresos
+    .row.justify-content-center
+      .col-md-6(style="margin-bottom: 30px;")
+        .card-body
+           form#ingreso-edit
+            .form-group
+              p(style="margin-bottom: 2px;color: #9c9999;") Titulo
+              input.form-control(type='text', id="titulo", name='titulo',value=datoingreso[0].titulo, placeholder='Titulo', autofocus='')
+            .form-group
+              p(style="margin-bottom: 2px;color: #9c9999;") Descripcion
+              input.form-control(type='text',id="descripcion", value=datoingreso[0].descripcion,name='descripcion', placeholder='Descripción')
+            .form-group
+                label(style="color:#9c9999") Tipo de Ingreso
+            .form-group
+              if datoingreso[0].tipo == "Normal"
+                  input#contactChoice1(type='radio',class="ingreso", name='contact1',value=datoingreso[0].tipo checked)
+                  label(for='contactChoice1', style="margin-right: 60px;") Normal
+                  input#contactChoice2(type='radio', class="ingreso2",name='contact1', value="Destraccion")
+                  label(for='contactChoice2') Detracción
+              else
+                  input#contactChoice1(type='radio',class="ingreso", name='contact1',value="Normal")
+                  label(for='contactChoice1', style="margin-right: 60px;") Normal
+                  input#contactChoice2(type='radio', class="ingreso2",name='contact1',value=datoingreso[0].tipo checked)
+                  label(for='contactChoice2') Detracción
+            .form-group
+                 label(style="color: #9c9999") Tipo de Moneda
+            .form-group
+              if datoingreso[0].tipo_moneda == "Dolares"
+                  input#contactChoice3(type='radio',class="moneda" name='contact2',value=datoingreso[0].tipo_moneda checked)
+                  label(for='contactChoice3', style="margin-right: 58px;") Dolares
+                  input#contactChoice4(type='radio',class="moneda2" name='contact2',value="Soles")
+                  label(for='contactChoice4') Soles
+              else
+                  input#contactChoice3(type='radio',class="moneda" name='contact2',value="Dolares")
+                  label(for='contactChoice3', style="margin-right: 58px;") Dolares
+                  input#contactChoice4(type='radio',class="moneda2" name='contact2',value=datoingreso[0].tipo_moneda checked)
+                  label(for='contactChoice4') Soles
+            .form-group
+              p(style="margin-bottom: 2px;color: #9c9999;") Monto
+              input.form-control(type='number',id="moneda",value=datoingreso[0].monto,step="0.01", name='monto', placeholder='Monto')
+            .form-group
+                label(style="color: #2267aff2;color: #9c9999;") Tipo de Documento
+            .form-group
+              if datoingreso[0].tipo_documento == "DNI"
+                  input#contactChoice5(type='radio',class="documento", name='contact3',value=datoingreso[0].tipo_documento checked)
+                  label(for='contactChoice5', style="margin-right: 90px;") Dni
+                  input#contactChoice6(type='radio',class="documento2", name='contact3',value="RUC")
+                  label(for='contactChoice6') Ruc
+              else
+                  input#contactChoice5(type='radio',class="documento", name='contact3',value="DNI")
+                  label(for='contactChoice5', style="margin-right: 90px;") Dni
+                  input#contactChoice6(type='radio',class="documento2", name='contact3',value=datoingreso[0].tipo_documento checked)
+                  label(for='contactChoice6') Ruc
+            .form-group
+              p(style="margin-bottom: 2px;color: #9c9999;") Numero de  Documento
+              input.form-control(type='number',id="numerodocumento",value=datoingreso[0].numero_documento, name='numerodocumento', placeholder='Numero de Documento')
+            .form-group
+              p(style="margin-bottom: 2px;color: #9c9999;") Razon Social
+              input.form-control(type='text',id="razon",value=datoingreso[0].razonsocial, name='razonSocial', placeholder='Razon Social')
+            .form-group
+                p(style="margin-bottom: 2px;color: #9c9999;") Numero de Cuenta
+                select.selectpicker(name='cuenta')
+                  each lista in editlista
+                      if lista.numero_cuenta==datoingreso[0].cuenta_destino
+                            option(value=lista.numero_cuenta) #{lista.numero_cuenta}
+                            each lista in editlista
+                               if lista.numero_cuenta!=datoingreso[0].cuenta_destino
+                                    option(value=lista.numero_cuenta) #{lista.numero_cuenta}       
+            .form-group
+              p(style="margin-bottom: 2px;color: #9c9999;") Numero de Comprobante
+              select.selectpicker(name='comprobante')
+               if datoingreso[0].tipo_componente == "Factura"
+                  option(value=datoingreso[0].tipo_componente) #{datoingreso[0].tipo_componente}
+                  option(value="Boleta") Boleta
+               else
+                  option(value=datoingreso[0].tipo_componente) #{datoingreso[0].tipo_componente}
+                  option(value="Factura") Factura
+            .button-cnt.row.justify-content-center(style="padding-bottom: 35px; padding-top: 15px;")
+                button.btn.btn-primary.ver(type='submit',style="background-color:#28a76c")
+                  | Editar
+                a.btn.btn-primary(href="/ingresos",style="background-color:#d46517;margin-left: 30px;") Salir

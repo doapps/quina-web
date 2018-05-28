@@ -16,7 +16,7 @@ $(document).ready(() => {
         }else {
           alert(data.message);
           if(data.roles === "Operador"){
-             window.location.href ="/tablaingresos";
+             window.location.href ="/ingresos";
           }else{
             window.location.href ="/usuarios";
           }

@@ -78,15 +78,15 @@ $(document).ready(() => {
                 }else{
                     if(tipodocumento==="DNI"){
                         if(numero.length===8){
-                            location.reload();
                             listar($('#listar-form').serialize());
+                            window.location.href ="/ingresos";
                         }else{
                             alert("El Numero de DNI debe tener 8 digitos");
                         }
                     }else if(tipodocumento==="RUC"){
                         if(numero.length===11){
-                            location.reload();
                             listar($('#listar-form').serialize());
+                            window.location.href ="/ingresos";
                             
                         }else{
                             alert("El Numero de ruc debe tener 11 digitos");
@@ -116,7 +116,7 @@ $(document).ready(() => {
   function listar(formData){
     $.ajax({
       type:'POST',
-      url:'/tablaingresos',
+      url:'/ingresos/crear',
       data: formData,
       success: (data) => {
         alert(data.message);

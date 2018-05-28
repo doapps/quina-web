@@ -22,7 +22,7 @@ controller.listar = (req, res) => {
         console.log('tabla de usuarios...');
       });
     } else {
-      res.redirect('/tablaingresos');
+      res.redirect('/ingresos');
     }
   } else {
     res.redirect('/login');
@@ -37,7 +37,7 @@ controller.crear = (req, res) => {
     if (roles === 'Administrador') {
       res.render('usuarios/crear', {});
     } else {
-      res.redirect('/tablaingresos');
+      res.redirect('/ingresos');
     }
   } else {
     res.redirect('/login');

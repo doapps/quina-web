@@ -20,11 +20,14 @@ router.post('/usuarios/editar', userController.editarPost);
 router.get('/usuarios/eliminar/:id', userController.eliminar);
 
 // tabla ingresos
-router.get('/tablaingresos', ingresosControllers.listarcuenta);
-router.post('/tablaingresos', ingresosControllers.ingresarinsert);
-router.get('/eliminar/:id', ingresosControllers.eliminar);
-router.get('/actualizar/:id', ingresosControllers.ingresosEditActualizar);
-router.post('/actualizar', ingresosControllers.ingresosActualizar);
+router.get('/ingresos', ingresosControllers.listarcuenta);
+router.get('/ingresos/crear', ingresosControllers.crear);
+router.post('/ingresos/crear', ingresosControllers.crearPost);
+router.get('/ingresos/eliminar/:id', ingresosControllers.eliminar);
+router.get('/ingresos/editar/:id', ingresosControllers.ingresosEditActualizar);
+router.post('/ingresos/editar', ingresosControllers.ingresosActualizar);
+
+
 
 
 // tabla gastos

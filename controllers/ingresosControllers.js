@@ -7,6 +7,27 @@ controllers.listarcuenta = (req, res) => {
     nom, apelli, roles, email,
   } = req.session;
   if (email) {
+      db.query('select * from ingresos;', (error, results) => {
+        if (error) {
+          res.json(error);
+        }
+        res.render('ingresos/listar', {
+          listaingresos: results,
+          nom,
+          apelli,
+          roles,
+        });
+      });
+  } else {
+    res.redirect('/login');
+  }
+};
+
+controllers.crear = (req, res) => {
+  const {
+    nom, apelli, roles, email,
+  } = req.session;
+  if (email) {
     db.query('select numero_cuenta from cuentas;', (err, result) => {
       if (err) {
         res.json(err);
@@ -15,7 +36,7 @@ controllers.listarcuenta = (req, res) => {
         if (error) {
           res.json(error);
         }
-        res.render('tablaingresos', {
+        res.render('ingresos/crear', {
           listacuenta: result,
           listaingresos: results,
           nom,
@@ -29,7 +50,7 @@ controllers.listarcuenta = (req, res) => {
   }
 };
 
-controllers.ingresarinsert = (req, res) => {
+controllers.crearPost = (req, res) => {
   const {
     titulo, descripcion, contact1, contact2, moneda, contact3,
     numerodocumento, razon, cuenta, comprobante,
@@ -54,7 +75,7 @@ controllers.ingresarinsert = (req, res) => {
 controllers.eliminar = (req, res) => {
   const valor = req.params.id;
   db.query('delete from ingresos where id= ?', [valor], () => {
-    res.redirect('/tablaingresos');
+    res.redirect('/ingresos');
   });
 };
 
@@ -65,7 +86,7 @@ controllers.ingresosEditActualizar = (req, res) => {
   db.query('select titulo,descripcion,tipo,tipo_moneda,monto,numero_documento,tipo_documento,razonsocial,cuenta_destino,tipo_componente from ingresos where id=?', [actualizar], (err, result) => {
     session.actualizar = actualizar;
     db.query('select numero_cuenta from cuentas;', (error, results) => {
-      res.render('ingresoedit', { datoingreso: result, editlista: results });
+      res.render('ingresos/editar', { datoingreso: result, editlista: results });
     });
   });
 };
