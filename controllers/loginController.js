@@ -1,5 +1,7 @@
 const db = require('../database/connection');
 const crypto = require('crypto');   
+const mysql = require('mysql2/promise');
+
 
 
 const user = {};
@@ -10,14 +12,10 @@ user.validarUsuario = async(req, res) => {
   const passwords = req.body.password;
   const encryptPassword = crypto.createHash('md5').update(passwords).digest('hex');
 
-  try {
-    const  [result ,fields] = await db.execute('select correo,contra,rol,nombre,apellido,id from usuarios where correo=? and contra=?', [email, encryptPassword]);
+    const connection = await mysql.createConnection(db);
+    const [result, fields] = await connection.query('select correo,contra,rol,nombre,apellido,id from usuarios where correo=? and contra=?', [email, encryptPassword]);
     let mensaje = '';
-    console.log(`${result.length} --> longitud`);
-  } catch (err) {
-    console.log(`${err}  --> error `);
-  }
-    /*
+
     if (result.length === 0) {
       mensaje = 'Datos Incorrectos';
     } else {
@@ -38,8 +36,9 @@ user.validarUsuario = async(req, res) => {
     }
     const { roles } = req.session;
     res.status(200).send({ message: mensaje, email, roles });
-  */
+  
 };
+
 
 user.logout = (req, res) => {
   const { session } = req;

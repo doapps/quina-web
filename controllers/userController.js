@@ -1,18 +1,18 @@
 const db = require('../database/connection');
 const crypto = require('crypto');
+const mysql = require('mysql2/promise');
+
 
 const controller = {};
 
-controller.listar = (req, res) => {
+controller.listar = async (req, res) => {
   const {
     nom, apelli, roles, email,
   } = req.session;
   if (email) {
     if (roles === 'Administrador') {
-      db.query('select * from  usuarios ', (err, result) => {
-        if (err) {
-          res.json(err);
-        }
+      const connection = await mysql.createConnection(db);
+      const [result, fields] = await connection.query('select * from  usuarios ');
         res.render('usuarios/listar', {
           tablau: result,
           nom,
@@ -20,7 +20,7 @@ controller.listar = (req, res) => {
           roles,
         });
         console.log('tabla de usuarios...');
-      });
+      
     } else {
       res.redirect('/ingresos');
     }
@@ -44,51 +44,47 @@ controller.crear = (req, res) => {
   }
 };
 
-controller.crearPost = (req, res) => {
+controller.crearPost = async (req, res) => {
   const nombre = req.body.name;
   const apellido = req.body.lastname;
   const contra = req.body.contraseña;
   const correos = req.body.correo;
   const roles = req.body.rol;
   const encrypt = crypto.createHash('md5').update(contra).digest('hex');
-  db.query('select * from usuarios where correo = ?', correos, (err, result) => {
+  const connection = await mysql.createConnection(db);
+  const [result] =  await connection.query('select * from usuarios where correo = ?', [correos]);
     if (result.length > 0) {
       res.status(200).send({ message: 'El correo ya existe' });
     } else {
       const fecha = new Date();
       const fecha2 = new Date();
       const habilitar = 'Habilitado';
-      db.query(
+     const [result] = await connection.query(
         'insert into  usuarios (nombre,apellido,correo,contra,rol,estado,fecha_creacion,fecha_actualizacion)values(?,?,?,?,?,?,?,?)',
-        [nombre, apellido, correos, encrypt, roles, habilitar, fecha, fecha2], () => {
+        [nombre, apellido, correos, encrypt, roles, habilitar, fecha, fecha2]);
           res.status(200).send({ message: 'Registro completo' });
-        },
-      );
+     
     }
-  });
 };
 
-controller.eliminar = (req, res) => {
+controller.eliminar = async (req, res) => {
   const { ides } = req.session;
   const valor = req.params.id;
   console.log(ides);
   console.log(valor);
   if (ides === valor) {
-    db.query('delete from gastos where autor_id=?', valor, () => {
-      db.query('delete from ingresos where autor_id=?', valor, () => {
-        db.query('delete from usuarios where id=?', valor, () => {
-          res.redirect('/logout');
-        });
-      });
-    });
+    const connection = await mysql.createConnection(db);
+    const [result] = await connection.query('delete from gastos where autor_id=?', [valor]);
+    const [result2] = await connection.query('delete from ingresos where autor_id=?', [valor]);
+    const [result3] =  await connection.query('delete from usuarios where id=?',[valor]);
+     res.redirect('/logout');
   } else {
-    db.query('delete from gastos where autor_id=?', valor, () => {
-      db.query('delete from ingresos where autor_id=?', valor, () => {
-        db.query('delete from usuarios where id=?', valor, () => {
-          res.redirect('/usuarios');
-        });
-      });
-    });
+      const connection = await mysql.createConnection(db);
+      const [result] = await connection.query('delete from gastos where autor_id=?', [valor]);
+      const [result2] = await connection.query('delete from ingresos where autor_id=?', [valor]);
+      const [result3] =  await connection.query('delete from usuarios where id=?',[valor]);
+      res.redirect('/usuarios');
+          
   }
 };
 
