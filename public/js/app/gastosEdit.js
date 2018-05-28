@@ -19,11 +19,11 @@ $(document).ready(() => {
   function actualziargastos(formData){
     $.ajax({
       type:'POST',
-      url:'/actualizargastos',
+      url:'/gastos/editar',
       data: formData,
       success: (data) => {
         alert(data.message);
-        window.location.href ="/tablagastos";
+        window.location.href ="/gastos";
       },
       error: (jqXHR, textStatus, err) => {
         alert('text status ' + textStatus + ', err ' + err);

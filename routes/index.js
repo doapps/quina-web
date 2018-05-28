@@ -27,15 +27,14 @@ router.get('/ingresos/eliminar/:id', ingresosControllers.eliminar);
 router.get('/ingresos/editar/:id', ingresosControllers.ingresosEditActualizar);
 router.post('/ingresos/editar', ingresosControllers.ingresosActualizar);
 
-
-
-
 // tabla gastos
-router.get('/tablagastos', gastosControllers.listargastos);
-router.post('/tablagastos', gastosControllers.gastosinsert);
-router.get('/eliminargastos/:id', gastosControllers.gastoseliminar);
-router.get('/actualizargastos/:id', gastosControllers.gastosactualizar);
-router.post('/actualizargastos', gastosControllers.gastosUpdate);
+router.get('/gastos',gastosControllers.listargastos);
+router.get('/gastos/crear', gastosControllers.crear);
+router.post('/gastos/crear', gastosControllers.crearPost);
+router.get('/gastos/eliminar/:id', gastosControllers.gastoseliminar);
+router.get('/gastos/editar/:id', gastosControllers.gastosactualizar);
+router.post('/gastos/editar', gastosControllers.gastosUpdate);
+
 
 
 module.exports = router;

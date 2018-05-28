@@ -12,8 +12,8 @@ $(document).ready(() => {
       if(modalidadpago === null || titular === null || cuentanumero === null){
         alert("Complete todos los datos no debe haber campos vacios");
       }else{
+            window.location.href ="/gastos";
             insertgastos($('#gastoslistar').serialize());
-            location.reload();
       }
   }else{
     alert("Complete todos los datos no debe haber campos vacios");
@@ -29,6 +29,11 @@ $(document).ready(() => {
           event.preventDefault();
         }
       });
+
+
+
+
+      
 
     $('#moneda').on('keyup keypress', (event)=>{
 
@@ -59,7 +64,7 @@ $(document).ready(() => {
   function insertgastos(formData){
     $.ajax({
       type:'POST',
-      url:'/tablagastos',
+      url:'/gastos/crear',
       data: formData,
       success: (data) => {
         alert(data.message);

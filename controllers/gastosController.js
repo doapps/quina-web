@@ -8,6 +8,30 @@ controllers.listargastos = (req, res) => {
     nom, apelli, roles, email,
   } = req.session;
   if (email) {
+  
+      db.query('select * from gastos;', (error, results) => {
+        if (error) {
+          res.json(error);
+        }
+        res.render('gastos/listar', {
+          listagastos: results,
+          nom,
+          apelli,
+          roles,
+        });
+      });
+  } else {
+    res.redirect('/login');
+  }
+};
+
+
+
+controllers.crear = (req, res) => {
+  const {
+    nom, apelli, roles, email,
+  } = req.session;
+  if (email) {
     db.query('select numero_cuenta,titular from cuentas;', (err, result) => {
       if (err) {
         res.json(err);
@@ -16,7 +40,7 @@ controllers.listargastos = (req, res) => {
         if (error) {
           res.json(error);
         }
-        res.render('tablagastos', {
+        res.render('gastos/crear', {
           listacuenta: result,
           listagastos: results,
           nom,
@@ -30,7 +54,9 @@ controllers.listargastos = (req, res) => {
   }
 };
 
-controllers.gastosinsert = (req, res) => {
+
+
+controllers.crearPost = (req, res) => {
   const {
     titulo, descripcion, contact1, contact2, moneda, modalidad,
     contact3, titular, numeroCuenta,
@@ -49,7 +75,7 @@ controllers.gastosinsert = (req, res) => {
 controllers.gastoseliminar = (req, res) => {
   const valor = req.params.id;
   db.query('delete from gastos where id=?', [valor], () => {
-    res.redirect('/tablagastos');
+    res.redirect('/gastos');
   });
 };
 
@@ -59,7 +85,7 @@ controllers.gastosactualizar = (req, res) => {
   db.query('select titulo,descripcion,tipo,tipo_moneda,modalidad,comprobante,titular,numero_cuenta,monto from gastos where id=?', [actualizargastos], (err, result) => {
     session.actualizargastos = actualizargastos;
     db.query('select numero_cuenta,titular from cuentas;', (error, results) => {
-      res.render('gastosedit', { datogastos: result, editlista: results });
+      res.render('gastos/editar', { datogastos: result, editlista: results });
     });
   });
 };
