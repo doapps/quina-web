@@ -77,27 +77,29 @@ controller.eliminar = async (req, res) => {
     const [result] = await connection.query('delete from gastos where autor_id=?', [valor]);
     const [result2] = await connection.query('delete from ingresos where autor_id=?', [valor]);
     const [result3] =  await connection.query('delete from usuarios where id=?',[valor]);
-     res.redirect('/logout');
+       res.redirect('/logout');
   } else {
       const connection = await mysql.createConnection(db);
       const [result] = await connection.query('delete from gastos where autor_id=?', [valor]);
       const [result2] = await connection.query('delete from ingresos where autor_id=?', [valor]);
       const [result3] =  await connection.query('delete from usuarios where id=?',[valor]);
-      res.redirect('/usuarios');
-          
+        res.redirect('/usuarios');
   }
 };
 
-controller.editar = (req, res) => {
+controller.editar = async (req, res) => {
   const { session } = req;
   const actualizaUsuario = req.params.id;
   session.actualizaUsuario = actualizaUsuario;
-  db.query('select id,nombre,apellido,correo,rol,estado  from usuarios where id=?', [actualizaUsuario], (err, result) => {
-    res.render('usuarios/editar', { dato: result });
-  });
+  const connection = await mysql.createConnection(db);
+  const [result] = await connection.query('select id,nombre,apellido,correo,rol,estado  from usuarios where id=?', [actualizaUsuario]);
+    if(result){
+      res.render('usuarios/editar', { dato: result });
+    }
+
 };
 
-controller.editarPost = (req, res) => {
+controller.editarPost =  async (req, res) => {
   const { actualizaUsuario } = req.session;
   const nom = req.body.nombre;
   const apelli = req.body.apellido;
@@ -105,9 +107,14 @@ controller.editarPost = (req, res) => {
   const rul = req.body.rol;
   const estatus = req.body.estado;
   const fecha = new Date();
-  db.query('update usuarios set nombre=?,apellido=?,correo=?,rol=?,estado=?,fecha_actualizacion=? where id=?', [nom, apelli, email, rul, estatus, fecha, actualizaUsuario], () => {
-    res.status(200).send({ message: 'Acción con exito' });
-  });
+
+  const connection = await mysql.createConnection(db);
+  const [result] = await connection.query('update usuarios set nombre=?,apellido=?,correo=?,rol=?,estado=?,fecha_actualizacion=? where id=?', [nom, apelli, email, rul, estatus, fecha, actualizaUsuario]);
+    
+    if(result){
+       res.status(200).send({ message: 'Acción con exito' });
+    }
+
 };
 
 module.exports = controller;

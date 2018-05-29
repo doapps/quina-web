@@ -31,10 +31,6 @@ $(document).ready(() => {
       });
 
 
-
-
-      
-
     $('#moneda').on('keyup keypress', (event)=>{
 
         let moneda = $('#moneda').val();

@@ -27,25 +27,13 @@ $(document).ready(() => {
 
 
     $('#numerodocumento').on('keyup keypress', (event)=>{
-
         let numero = $('#numerodocumento').val();
         let keycode = event.keyCode;
-
-      var contar=0;
-      if(numero.charAt(0) == '.'){
-        $('#numerodocumento').val('');
+      if(keycode == '46'){
+        event.preventDefault();
       }
       if((keycode > 47 && keycode < 58) || keycode== 8 || keycode == 13 || keycode== 6 || keycode == 46 ){
-          for (let index = 0; index < numero.length; index++) {
-                if(numero.charAt(index) == '.'){
-                  contar++;
-                  if(contar == 2){
-                    let dividir = numero.substring(0,numero.length-1);
-                    $('#numerodocumento').val(dividir);
-                    event.preventDefault();
-                  }
-                }
-          }
+         
       }else{
          event.preventDefault();
       }
